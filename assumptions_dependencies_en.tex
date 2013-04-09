@@ -1,34 +1,33 @@
-\begin{multicols}{2}[\section{Assumptions and Dependencies}]
+\section{Assumptions and Dependencies}
 
-The software should be implemented on the Java platform. The main dependency
-of the software is memory, because we need to calculate the nodes of the fractal
-with a satisfying amoung of layers.
+\subsection*{Java Platform}
 
-It should be possible to distribute the calculation of the fractal on multiple
-computers, because the calculation is very time intensive.
+The software would be build on top of the Java\cite{java13} platform. The Java platform
+offers the scripts an open source and platform independend framework
+and libraries.
 
-\subsection{Possible Dependencies}
+\subsection*{Groovy}
 
-\subsubsection{Hazelcast}
+Groovy\cite{groovy13}
+is a dynamic language on top of the Java platform. It enachance the Java
+language with dynamic typing and functional features, like closures.
 
-Hazelcast\footnote{\url{http://www.hazelcast.com/}}
-is a distributed in memory data grid available under the Apache Licence.
-It have a Elastic Memory implementation with is off-heap memory storage for big
-data. The Elastic Memory is only available in Hazelcast Enterprise Edition with
-have a commercially licensed edition of Hazelcast.
+\subsection*{Slf4j}
 
-\subsubsection{Ehcache and BigMemory}
+Slf4j\cite{slf4j13} logging framework that decorates logging implementations like 
+Log4j\cite{log4j13} and Logback\cite{logback13}.
 
-Ehcache\footnote{\url{http://terracotta.org/documentation/overview}}
-supports distributed caching and is available under the Apache 2.0 licence.
-It can be used with BigMemory, with is off-heap memory storage for big
-data. BigMemory is only available in Enterprise Ehcache.
+\subsection*{Apache Commons}
 
-\subsubsection{Java Caching System}
+The Apache Commons\cite{commons13} libraries are a collection of libraries
+for various common use cases like I/O, Strings, Objects, Collections, and so on.
 
-JCS\footnote{\url{http://commons.apache.org/jcs/}}
-is a distributed caching system and is available under the Apache licence.
-It has an disk cache to swap entries to disk.
- 
-\end{multicols}
+\subsection*{Resources}
 
+The Resources\cite{resources13} libraries are a collection of libraries
+for loading binary, image, text and templates based on the locale.
+
+\subsection*{Args4j}
+
+The Args4j\cite{args4j13} is a Java library for parsing of command line arguments,
+based on annotations.

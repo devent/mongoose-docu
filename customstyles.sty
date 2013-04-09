@@ -1,0 +1,47 @@
+\ProvidesPackage{customstyles}[2013/04/08 Custom styles for the document]
+\RequirePackage{suffix}
+\RequirePackage{ulem}
+\RequirePackage{emptyspacecolumns}
+\RequirePackage{listingstyles}
+\RequirePackage{groovylstlang}
+\RequirePackage{noparinent}
+\RequirePackage{licenseslist}
+
+\lstdefinelanguage{Groovybash}[]{Groovy}{%
+morekeywords={cd,echo,exit,printf,println,print,run,pwd},
+morekeywords=[2]{DirectoryNotFound},
+morekeywords=[3]{HOME,USER_HOME,CDPATH,PWD}
+}
+
+\lstdefinestyle{Groovybash}
+{language=Groovybash, style=nonumbers, basicstyle=\small,
+emph={},emphstyle=\textbf,
+emph={[2]DirectoryNotFound},emphstyle={[2]\textbf},
+emph={[3]HOME,USER_HOME},emphstyle={[3]\textbf}}
+
+%% Put the command line parameter in a box
+%% \parparameter{Title}
+\newcommand{\parparameter}[1]{%
+\paragraph{\texttt{#1}}
+}
+
+\newcommand\parcommand{\textbf}
+\newcommand\partype[1]{\texttt{\textsc{#1}}}
+\newcommand\codetype{\textsc}
+
+%% put code in double quote
+%% \codequoted{text}
+\newcommand{\codequoted}[1]{%
+``\code{#1}''}
+
+%% put code in double quote
+%% \codequoted{text}
+\newcommand{\typeitem}[1]{%
+$\langle$#1$\rangle$}
+
+%\setkomafont{chapter}{}
+\setkomafont{section}{\large\textsf}
+\setkomafont{subsection}{\normalfont\textsf\normalsize\uline}
+\setkomafont{subsubsection}{\normalfont\textsf\normalsize\uline}
+\setkomafont{paragraph}{\normalsize}
+\setkomafont{subparagraph}{\normalsize\normalfont}

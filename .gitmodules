@@ -1,0 +1,6 @@
+[submodule "latexbibs"]
+	path = latexbibs
+	url = gitpublic@anr-institute.com:latexbibs.git
+[submodule "latexlibs"]
+	path = latexlibs
+	url = gitpublic@anr-institute.com:latexlibs.git
