@@ -6,7 +6,30 @@
 \RequirePackage{groovylstlang}
 \RequirePackage{noparinent}
 \RequirePackage{licenseslist}
+\RequirePackage{fmtcount}
+\RequirePackage{microtype}
+\RequirePackage{xspace}
 
+%%%%
+% Format chapter, section and paragraph
+%
+\newcommand{\FontTitle}{\fontsize{36}{36}\selectfont\textls*[200]}
+\setkomafont{title}{\bfseries\sffamily\scshape}
+\setkomafont{chapter}{\Huge\bfseries\sffamily\scshape}
+\setkomafont{section}{\normalfont\large\bfseries\itshape\textsf}
+\setkomafont{subsection}{\normalfont\large\itshape\textsf}
+\setkomafont{subsubsection}{\normalfont\textsf\normalsize\uline}
+\setkomafont{paragraph}{\normalsize}
+\setkomafont{subparagraph}{\normalsize\normalfont}
+\newcommand{\FontAuthor}{\normalsize}
+\newcommand{\FontDate}{\normalsize}
+\newcommand{\FontPublishers}{\normalsize}
+\renewcommand*{\chapterformat}{\makebox[0pt][r]{\chapappifchapterprefix{\ }\thechapter\autodot\enskip}\noindent}
+\renewcommand*{\othersectionlevelsformat}[3]{\makebox[0pt][r]{#3\autodot\enskip}}
+%%%%
+
+%%%%
+% Format listings
 \lstdefinelanguage{Groovybash}[]{Groovy}{%
 morekeywords={cd,echo,exit,printf,println,print,run,pwd},
 morekeywords=[2]{DirectoryNotFound},
@@ -18,30 +41,30 @@ morekeywords=[3]{HOME,USER_HOME,CDPATH,PWD}
 emph={},emphstyle=\textbf,
 emph={[2]DirectoryNotFound},emphstyle={[2]\textbf},
 emph={[3]HOME,USER_HOME},emphstyle={[3]\textbf}}
+%%%%
 
-%% Put the command line parameter in a box
-%% \parparameter{Title}
-\newcommand{\parparameter}[1]{%
-\paragraph{\texttt{#1}}
-}
+%%%%
+% Different formats
+\definecolor{OperatorColor}{rgb}{0.6,0,0}
 
-\newcommand\parcommand{\textbf}
-\newcommand\partype[1]{\texttt{\textsc{#1}}}
-\newcommand\codetype{\textsc}
+\newcommand{\Operator}[1]{\marginpar{\textcolor{OperatorColor}{\begin{flushright}#1\end{flushright}}}}
+\newcommand{\TheOperator}[1]{\code{#1} \OperatorName}
+\WithSuffix\newcommand\TheOperator*[1]{\code{#1} \OperatorName}
+\newcommand{\TypeStream}{\textsc{\TypeStreamName}\xspace}
+\newcommand{\TypeFile}{\textsc{\TypeFileName}\xspace}
+\newcommand{\TypeReturnValue}{\textsc{\TypeReturnValueName}\xspace}
+\newcommand{\TypeGenericObject}{\textsc{\TypeGenericObjectName}\xspace}
 
-%% put code in double quote
-%% \codequoted{text}
-\newcommand{\codequoted}[1]{%
-``\code{#1}''}
+\newcommand{\parparameter}[1]{\paragraph{\texttt{#1}}}
+\newcommand{\parcommand}{{\bfseries}}
+\newcommand{\partype}[1]{\texttt{\textsc{#1}}}
+\newcommand{\codetype}{\textsc}
+\newcommand{\codequoted}[1]{``\code{#1}''}
+\newcommand{\typeitem}[1]{$\langle$#1$\rangle$}
+%%%%
 
-%% put code in double quote
-%% \codequoted{text}
-\newcommand{\typeitem}[1]{%
-$\langle$#1$\rangle$}
+\newcounter{Feature}
+\newcommand{\printTheFeature}{\stepcounter{Feature}\padzeroes[2]{\decimal{Feature}}}
+\newcommand{\TheFeature}{\padzeroes[2]{\decimal{Feature}}}
 
-%\setkomafont{chapter}{}
-\setkomafont{section}{\large\textsf}
-\setkomafont{subsection}{\normalfont\textsf\normalsize\uline}
-\setkomafont{subsubsection}{\normalfont\textsf\normalsize\uline}
-\setkomafont{paragraph}{\normalsize}
-\setkomafont{subparagraph}{\normalsize\normalfont}
+\reversemarginpar
