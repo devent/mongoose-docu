@@ -24,7 +24,9 @@
 %
 \RequirePackage[utf8]{inputenc}
 %
-\RequirePackage[paper=a4paper,margin=2.5cm,includeheadfoot,hmarginratio=1:1,hmargin={4cm,2cm}]{geometry}
+\RequirePackage[paper=a4paper,margin=2.5cm,includeheadfoot,hmargin={5.0cm,2cm},marginparwidth=3.5cm]{geometry}
+%
+\RequirePackage[backend=bibtex8,citestyle=numeric]{biblatex}
 % Font
 \RequirePackage{bookman}
 \RequirePackage[T1]{fontenc}

@@ -9,6 +9,7 @@
 \RequirePackage{fmtcount}
 \RequirePackage{microtype}
 \RequirePackage{xspace}
+\RequirePackage{ifthen}
 
 %%%%
 % Format chapter, section and paragraph
@@ -44,16 +45,60 @@ emph={[3]HOME,USER_HOME},emphstyle={[3]\textbf}}
 %%%%
 
 %%%%
+\newcommand{\AutoLabel}[2][empty]{\ifthenelse{\equal{#1}{empty}}{\label{ex:#2}}{\label{ex:#1}}}
+\newcommand{\AutoRef}[2][empty]{\ifthenelse{\equal{#1}{empty}}{\ref{ex:#2}}{\ref{ex:#1}}}
 % Different formats
+% Operator
+\newcommand{\initmarginpar}[1]{\leavevmode\marginpar{\flushright{#1}}\ignorespaces}
 \definecolor{OperatorColor}{rgb}{0.6,0,0}
-
-\newcommand{\Operator}[1]{\marginpar{\textcolor{OperatorColor}{\begin{flushright}#1\end{flushright}}}}
-\newcommand{\TheOperator}[1]{\code{#1} \OperatorName}
-\WithSuffix\newcommand\TheOperator*[1]{\code{#1} \OperatorName}
+\newcommand{\TheOperator}[1]{\initmarginpar{\textcolor{OperatorColor}{\ttfamily\bfseries#1}}}
+\newcommand{\Operator}[1]{{\ttfamily\bfseries#1}}
+\WithSuffix\newcommand\Operator*[1]{\code{#1}}
+% Command
+\definecolor{CommandColor}{rgb}{0.6,0,0}
+\newcommand{\TheCommand}[1]{\initmarginpar{\textcolor{CommandColor}{\ttfamily\bfseries#1}}}
+\newcommand{\Command}[1]{{\ttfamily\bfseries#1}}
+\WithSuffix\newcommand\Command*[1]{\code{#1}}
+% Variable
+\definecolor{VariableColor}{rgb}{0.6,0,0}
+\newcommand{\TheVariable}[1]{\initmarginpar{\textcolor{VariableColor}{\ttfamily\bfseries#1}}}
+\newcommand{\Variable}[1]{{\ttfamily\bfseries#1}}
+\WithSuffix\newcommand\Variable*[1]{\code{#1}}
+% Exception
+\definecolor{ExceptionColor}{rgb}{0.6,0,0}
+\newcommand{\TheException}[2][empty]{\AutoLabel[#1]{#2}\marginpar{\textcolor{TypeColor}{\begin{flushright}\ttfamily\bfseries#2\end{flushright}}}}
+\newcommand{\TheExceptionLine}[1]{\initmarginpar{\textcolor{ExceptionColor}{\ttfamily\bfseries#1}}}
+\newcommand{\Exception}[1]{{\ttfamily\bfseries#1}}
+\WithSuffix\newcommand\Exception*[2][empty]{\Exception{#2} (\AutoRef[#1]{#2})}
+% Type
+\definecolor{TypeColor}{rgb}{0.6,0,0}
+\newcommand{\TheType}[2][empty]{\AutoLabel[#1]{#2}\marginpar{\textcolor{TypeColor}{\begin{flushright}\ttfamily\bfseries#2\end{flushright}}}}
+\newcommand{\TheTypeLine}[1]{\initmarginpar{\textcolor{TypeColor}{\ttfamily\bfseries#1}}}
+\newcommand{\Type}[1]{{\ttfamily\bfseries#1}}
+\WithSuffix\newcommand\Type*[2][empty]{\Type{#2} (\AutoRef[#1]{#2})}
+% Types
 \newcommand{\TypeStream}{\textsc{\TypeStreamName}\xspace}
 \newcommand{\TypeFile}{\textsc{\TypeFileName}\xspace}
 \newcommand{\TypeReturnValue}{\textsc{\TypeReturnValueName}\xspace}
 \newcommand{\TypeGenericObject}{\textsc{\TypeGenericObjectName}\xspace}
+% Table for a type
+\newcommand{\TypeTable}[2]{%
+\begin{small}
+\sffamily
+\begin{tabular}{ll}
+\toprule
+#1
+\midrule
+#2
+\bottomrule
+\end{tabular} 
+\end{small}
+}
+% Propery
+\newcommand{\Property}[1]{\code{#1}}
+
+\newcommand{\cbf}[2]{\multicolumn{1}{#1}{\textbf{#2}}}
+\newcommand{\mcl}[2]{\multicolumn{#1}{l}{#2}}
 
 \newcommand{\parparameter}[1]{\paragraph{\texttt{#1}}}
 \newcommand{\parcommand}{{\bfseries}}
@@ -68,3 +113,7 @@ emph={[3]HOME,USER_HOME},emphstyle={[3]\textbf}}
 \newcommand{\TheFeature}{\padzeroes[2]{\decimal{Feature}}}
 
 \reversemarginpar
+
+\hyphenation{IO-Exception}
+\hyphenation{Execute-Exception}
+\hyphenation{Command-Exception}

@@ -1,0 +1,27 @@
+\TheCommand{echo}%
+\Command{echo [newLine,] arguments...}
+
+Outputs the arguments separated by spaces to the standard output. After 
+the arguments a new line will be added. The argument \code{newLine} can be set
+to \code{false} if no new line should be added.
+
+\paragraph{Arguments:}
+
+\begin{asparadesc}
+%
+\item[\code{newLine: true|false}]  \hfill \\
+if \code{true} then a new line will follow the output,
+if \code{false} then no new line will follow the output. Defaults to \code{true}.
+%
+\item[\code{arguments\dots}]  \hfill \\
+can be any object, a list of objects or enumeration of objects.
+%
+\end{asparadesc}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_echo}]
+echo
+echo PWD
+echo "Hello"
+echo newline: false, "Hello", "World"
+\end{lstlisting}
+

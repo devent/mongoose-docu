@@ -1,0 +1,83 @@
+\subsection{Exceptions}
+
+Instead of return values all commands can throw an exception if they encounter
+any errors. In the Java language there are two kind of exceptions:
+unchecked exceptions and checked exceptions.
+
+All unchecked exceptions will be treaded as user errors in the usage of the
+commands, i.e. bugs in the code: wrong arguments, \code{null} values for mandatory arguments,
+wrong type of arguments, syntax errors, and so on. The unchecked exceptions
+can be mitigated by fixing the code, using default values for user specified 
+command line parameter or by test if the argument is valid for the command.
+
+Checked exceptions are treaded as expected errors, that is, errors that are ancipiated
+and where the user can decide what as an alternative can be done. File not found
+errors can be mitigated by asking the user for an alternative file; I/O errors
+can be mitigated by informing the user so the user can check the intergrity
+of the hard disk.
+
+The Groovy language does not have the concept of checked/unchecked exceptions,
+all exceptions are unchecked making catching exceptions optional. Any uncatched
+exceptions will terminate the current script and return an error message of
+the exception.
+
+The exceptions are logged by the commands and their operators. Depending of the
+logging level either the whole stack trace is logged or just an error message.
+
+\TheException{ExecuteException}%
+\TypeTable{ExecuteException & \code{extends} IOException\cite{ioexception13} \\}{%
+& ExecutionException(message, cause, exitValue) \\
+& ExecutionException(message, exitValue) \\
+\midrule
+& value \\
+}
+
+As a convention a command returning an exit value \code{0} returns 
+successfully and exit value other then \code{0} indicates that the command
+terminated unsuccessfully. If a command returns an exit value other then \code{0}
+then a \Exception{ExecuteException} will be thrown.
+
+The successfull exit values can be set to command. So if the command does not
+follow the convention or different exit values should be treaded as success,
+those values can be set and the exception will not be thrown.
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_execute_exception1}]
+try {
+  command(arguments)
+} catch (ExecuteException e) {
+  if (e.value == 1) { ... }
+  else { ... }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_execute_exception2}]
+try {
+  command(arguments)
+} catch (ExecuteException e) {
+  switch (e.value) {
+  case 1: ...
+  case 2: ...
+  default: ...
+  }
+}
+\end{lstlisting}
+
+\TheException[DirectoryNotFoundException]{DirectoryNotFound\\Exception}%
+\TypeTable{DirectoryNotFoundException & \code{extends} FileNotFoundException\cite{filenotfoundexception13} \\}{%
+& DirectoryNotFoundException(directory) \\
+\midrule
+& directory \\
+}
+
+Thrown if the specified directory path could not be found or read. 
+The \Property{directory} contains the directory \Type{File}\cite{file13}
+that was not found.
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_execute_exception1}]
+try {
+  cd directory
+} catch (DirectoryNotFoundException e) {
+  // ask for a new directory
+}
+\end{lstlisting}
+

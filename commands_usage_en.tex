@@ -1,0 +1,56 @@
+\subsection{Executing} 
+
+\TheOperator{call()}%
+\Operator{call(object...)}
+
+The \Operator{call()} operator sets the arguments for the command and executes the
+command. The script will wait for the command to finish and the return value 
+is the finished command.
+The arguments are optional and can be a single object, a list of objects,
+a map of objects or named arguments. 
+
+External commands have no concept of 
+types and all arguments are converted
+to a string and passed to the command as command line arguments.
+List of arguments, maps and named arguments are passed to the command
+in the order they are given.
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_call_op}]
+echo()
+cat file
+cat "-n", file
+cat "-n": file
+command one: foo, two: bar
+\end{lstlisting}
+
+\TheOperator{background()}%
+\Operator{background(object...)}
+
+The \Operator{background()} operator sets the arguments for the command and executes the
+command in the background. 
+The operator can set the arguments for the command like the \Operator{call()}
+operator. The return value is a \Type{Future}\cite{future13} of the command.
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_call_op}]
+echo.background()
+cat.background file
+cat.background "-n", file
+cat.background "-n": file
+command.background one: foo, two: bar
+\end{lstlisting}
+
+
+\TheOperator{args()}%
+\Operator{args(object...)}
+
+The \Operator{args()} operator sets the arguments for the command, like 
+the \Operator{call()} operator, but will not execute the command. The return
+value is the command.
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_args_op}]
+cat.args(file)
+cat.args "-n", file
+cat.args "-n": file
+command.args one: foo, two: bar
+\end{lstlisting}
+

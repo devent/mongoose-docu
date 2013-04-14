@@ -1,0 +1,122 @@
+\subsection{Stream Redirection}
+
+All commands can have file descriptor attached for input and output.
+Three file descriptor are assigned to the standard input and output streams
+of the command:
+\begin{compactitem}
+\item file descriptor 0. to standard input;
+\item file descriptor 1. to standard output;
+\item file descriptor 2. to standard output or errors;
+\end{compactitem}
+
+Those file descriptors can be redirected to a different stream
+or file. The operators \code{input(), output(), error()} and
+operators \code{<<, >>} can redirect the standard outputs
+or standard input to a different stream or file. The operator \code{|} 
+can pipe the standard output of one command to the standard input of another command.
+
+\TheOperator{input()}%
+\Operator{input(object)}
+
+The \Operator{input()} operator redirects the standard input of
+a command to the object specified on the right side. The object on the right 
+side can be of type \TypeStream or of type \TypeFile or can be a \TypeGenericObject. 
+The result of the operator will be the finished command.
+
+The \TypeStream will be read until the end of the stream
+is reached; the \TypeFile will be open and the content of the file is read;
+A \TypeGenericObject is converted to a string and the string is used as a file name. 
+The file with the file name is open and the content of the file is read.
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_input1_op}]
+echo.input = stream
+echo.input = file
+echo.input = "file.txt"
+echo.input stream
+\end{lstlisting}
+
+\TheOperator{output()}%
+\Operator{output([descriptor,] object [, append])}
+
+The \Operator{output()} operator redirects the specified file descriptor of
+a command to the object specified on the right side. If the file descriptor
+is not set, the file descriptor 1. is used and redirects the standard output, 
+The object can be of type \TypeStream or of type \TypeFile or can be a \TypeGenericObject. 
+
+The third argument is a boolean flag that specifies if the stream or file should
+be overridden or appended. If set to \code{true} then the stream or file
+is appended instead of overridden. If the flag is not set then the override
+mode is active.
+The result of the operator will be the finished command.
+
+For a \TypeStream the output will be written in the stream; 
+for a \TypeFile the file will be open and the output will be written to the file;
+A \TypeGenericObject is converted to a string and the string is used as a file name. 
+The file with the file name will be open and the output will be written to the file.
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_output1_op}]
+echo.output 1, file, true
+echo.output 1, stream
+echo.output 1, file
+echo.output 1, "file.txt"
+echo.output = stream
+echo.output = file
+echo.output = "file.txt"
+\end{lstlisting}
+
+\TheOperator{error()}%
+\Operator{error(object [, append])}
+
+The \Operator{error()} operator redirects the standard error output stream of
+a command to the object specified on the right side, like the \Operator{output} operator.
+
+The second argument is a boolean flag that specifies if the stream or file should
+be overridden or appended. If set to \code{true} then the stream or file
+is appended instead of overridden. If the flag is not set then the override
+mode is active.
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_error_op}]
+echo.error file, true
+echo.error = stream
+echo.error = file
+echo.error = "file.txt"
+\end{lstlisting}
+
+\TheOperator{<< operator}%
+\Operator{command << object}
+
+The \Operator{<<} redirects the standard input stream of the left to 
+the object specified on the right side, like the \Operator{input}, but
+files and streams are appended instead of overridden if possible. 
+The result of the operator will be the finished command.
+
+\TheOperator{>> operator}%
+\Operator{command >> object}
+
+The \Operator{>>} redirects the standard output stream of
+the left to the object specified on the right side, like the \Operator{output}, but
+files and streams are appended instead of overridden.
+The result of the operator will be the finished command.
+
+\TheOperator{| operator}%
+\Operator{command | command}
+
+The \Operator{|} creates a pipe between the left command and the right command.
+It is possible to chain multiple commands together. The result value will be the
+last command executed.
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_pipe1_op}]
+cat.args(file) | column | echo
+\end{lstlisting}
+
+\TheOperator{pipe()}%
+\Operator{pipe(command)}
+
+The \Operator{pipe()} operator creates a pipe between the left command 
+and the right command, like the \Operator{|} operator. The result value will be the
+finished last command.
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_pipe2_op}]
+cat.args(file).pipe column pipe echo
+\end{lstlisting}
+
