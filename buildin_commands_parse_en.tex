@@ -1,0 +1,78 @@
+\TheCommand{parse}%
+\Command{parse [arguments,] [valid,] [notValid,] parameter}
+
+\TypeTable{parse & implements Command \\}{%
+% constructors
+\midrule
+% properties
+& theParameter \\
+& arguments \\
+& valid \\
+& notValid \\
+\midrule
+% operators
+}
+
+Parse the specified command line parameter. If no 
+arguments are specified the command line arguments of the script, stored in
+the \Variable{ARGS} build-in variable, are used.
+An exception will be thrown if there was an error parsing the command line arguments
+by the specified parameter.
+
+The specified parameter is a Java bean object annotated with 
+Args4j\cite{args4j13} annotations:
+\begin{inparaitem}
+\item \Type{Argument};
+\item \Type{Option};
+\end{inparaitem}
+
+\paragraph{Arguments}
+
+\begin{asparadesc}
+%
+\item[\code{arguments: array|list}] \hfill \\
+The command line arguments. Defaults to the the \Variable{ARGS} build-in variable.
+%
+\item[\code{valid: closure}] \hfill \\
+Sets the closure that is called if the command line arguments are parsed without
+any errors. The first argument of the closure will be the parsed parameter.
+%
+\item[\code{notValid: closure}] \hfill \\
+Sets the closure that is called if the command line arguments are parsed with
+errors.
+%
+\item[\code{parameter}] \hfill \\
+Sets the parameter Java bean object. After the command line arguments are parsed
+the annotated fields contain the parsed values.
+%
+\end{asparadesc}
+
+\paragraph{Properties}
+
+\begin{asparadesc}
+%
+\item[\code{theParameter}] \hfill \\
+The parameter Java bean object. After the command line arguments are parsed
+the annotated fields contain the parsed values.
+%
+\end{asparadesc}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_arguments_parse}]
+parse valid: { convertFiles(it) },
+    notValid: { printHelp() },
+    new Parameter()
+    
+def printHelp() {
+}
+
+class Parameter {
+
+    @Option(name = "-format")
+    String format
+
+    @Argument(required = true, metaVar = "FILES")
+    List arguments
+}
+
+\end{lstlisting}
+

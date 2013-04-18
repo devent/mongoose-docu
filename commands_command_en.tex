@@ -2,9 +2,11 @@
 
 \TheType{Command}%
 \TypeTable{Command & \\}{%
+% constructors
 \midrule
-& name \\
-& environment \\
+% properties
+& theName \\
+& theEnvironment \\
 & args \\
 & inputStream \\
 & input \\
@@ -13,9 +15,10 @@
 & errorStream \\
 & error \\
 \midrule
+% operators
 & call \\
 & addVetoableChangeListener \\
-& removeVetoableChangeListener \\ 
+& removeVetoableChangeListener \\
 }
 
 The \Type{Command} type defines the interface for all external and
@@ -26,7 +29,7 @@ in the next sections.
 
 \begin{asparadesc}
 %
-\item[\code{name}] \hfill \\
+\item[\code{theName}] \hfill \\
 the name of the external or build-in command.
 %
 \end{asparadesc}

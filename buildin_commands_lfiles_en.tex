@@ -1,0 +1,103 @@
+\TheCommand{listFiles}%
+\Command{listFiles [recursive, depth, includeSubDirectories,\\ filter, filterType] [files]}
+
+\TypeTable{listFiles & implements Command \\}{%
+% constructors
+\midrule
+% properties
+& theFiles \\
+& recursive \\
+& depth \\
+& includeSubDirectories \\
+& filter \\
+& filterType \\
+\midrule
+% operators
+& asType \\
+}
+
+Search all files with the specified file names. The file names can contain 
+directory listings and wildcats \codequoted{*?} or regular expressions.
+If no file names are specified, as default all files are returned in the 
+current working directory.
+
+\paragraph{Arguments}
+
+\begin{asparadesc}
+%
+\item[\code{recursive: true|false}] \hfill \\
+if \code{true} then the files are searched in sub-directories recursive;
+if \code{false} then no sub-directories will be searched. Defaults to \code{false}.
+%
+\item[\code{depth: (+)number|-1}] \hfill \\
+Sets the number of levels of the sub-directories that should be searched.
+Set to zero to deactivate recursive search of sub-directories; set to a positive
+number to activate recursive search of sub-directories.
+Defaults to \code{-1} with means unlimited levels.
+%
+\item[\code{includeSubDirectories: true|false}] \hfill \\
+if \code{true} then the sub-directories of a recursive search are included.
+Defaults to \code{false}.
+%
+\item[\code{filter: FileFilter|closure}] \hfill \\
+Sets the \Type{FileFilter}\cite{filefilter13} to filter the found files.
+See also the sub-classes of \Type{AbstractFileFilter}\cite{abstractfilefilter13}.
+Can be a closure that returns a \code{boolean} value. The closure will be given
+the file\cite{file13} as the first argument.
+%
+\item[\code{filterType: class}] \hfill \\
+Sets a filter type that is used as the filter for files. The filter 
+must be of type \Type{FileFilter}\cite{filefilter13} and must have
+a public constructor that accepts a string as the file name. Defaults
+to the \Type{WildcardFileFilter}\cite{wildcardfilefilter13}. Possible canditates
+are:
+\begin{compactitem}
+\item \Type{NameFileFilter}
+\item \Type{PrefixFileFilter}
+\item \Type{RegexFileFilter}
+\item \Type{SuffixFileFilter}
+\item \Type{WildcardFileFilter}
+\end{compactitem}
+%
+\end{asparadesc}
+
+\paragraph{Properties}
+
+\begin{asparadesc}
+%
+\item[\code{theFiles}] \hfill \\
+The files that are found in the directories.
+%
+\end{asparadesc}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_listFiles_simple}]
+def files = listFiles().theFiles
+def files = listFiles() as List
+def files = listFiles "*.txt" theFiles
+def files = listFiles("*.txt") as List
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_listFiles_arguments}]
+def files = listFiles recursive: true, depth: 5, "*.txt" theFiles
+def files = listFiles depth: 5, "*.txt" theFiles
+def files = listFiles(depth: 5, "*.txt") as List
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_listFiles_iterate}]
+listFiles() theFiles.each {
+    echo it
+}
+listFiles "*.jpg" theFiles.each {
+    echo it
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_listFiles_filter}]
+def myfilter = [accept: { it.name =~ /.*txt/ }] as FileFilter
+def files = listFiles filter: myfilter, "path/to/files"
+def files = listFiles filterType: RegexFileFilter, "path/to/files/[abc].*"
+listFiles filter: { it.name =~ /.*txt/ } theFiles.each {
+    echo it
+}
+\end{lstlisting}
+

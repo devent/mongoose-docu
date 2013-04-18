@@ -1,0 +1,57 @@
+\TheCommand{run}%
+\Command{run [handler,] [, destroyer] [, watchdog] [, timeout] cmd [, envp] [, directory]}
+
+\TypeTable{run & implements Command \\}{%
+% constructors
+\midrule
+% properties
+\midrule
+% operators
+}
+
+Executes the specified command in a separate process with the
+specified environment and working directory.
+
+\paragraph{Arguments}
+
+\begin{asparaitem}
+%
+\item[\code{handler: ExecuteResultHandler}] \hfill \\
+a callback that is called when the process completes. 
+The methods of the \Type{ExecuteResultHandler}\cite{executeresulthandler13} 
+are called when the process completes or when the process fails.
+%
+\item[\code{destroyer: ProcessDestroyer}] \hfill \\
+\Type{ProcessDestroyer}\cite{processdestroyer13}  destroys the process under certain conditions.
+Defaults to the \Type{ShutdownHookProcessDestroyer}\cite{shutdownhookprocessdestroyer13}
+that will destroy the process after the script terminates unexpectelly.
+%
+\item[\code{watchdog}] \hfill \\
+destroys the process after a specified timeout. Defaults to 
+the \Type{ExecuteWatchdog}\cite{executewatchdog13} with infinite timeput, i.e.
+it will never timeout.
+%
+\item[\code{timeout: (+)number|duration}] \hfill \\
+sets the timeout for the process. Defaults to an infinite 
+timeout \code{ExecuteWatchdog} \code{\#INFINITE\_TIMEOUT}. Can be set to a positive
+number or a \Type{Duration}\cite{duration13}.
+%
+\item[\code{envp}] \hfill \\
+the system-dependent mapping from variables
+to values. The initial value is a copy of the environment of the current
+script. Can be a string containing \code{name=value} tupels
+separated by a comma, or a map containing \code{key=value} entries.
+%
+\item[\code{dir}] \hfill \\
+the working directory of the process. The default value
+is the current working directory set by the \Command*{cd} command
+and saved in the \Variable*{PWD} variable.
+%
+\end{asparaitem}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_run}]
+run "ls -al"
+run "javap -private", "path=/home/user/java6/bin"
+run "mvn package", [JAVA_HOME: "/home/user/java6"]
+\end{lstlisting}
+

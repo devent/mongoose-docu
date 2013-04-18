@@ -1,0 +1,44 @@
+\TheCommand{info}%
+\Command{info message [, args]}
+
+\TypeTable{info & implements Command \\}{%
+% constructors
+\midrule
+% properties
+name \\
+\midrule
+% operators
+}
+
+Log a message at the info level of the logger.
+The logging facade Slf4j\cite{slf4j13} is used and the used logger is
+the global script logger.
+
+\paragraph{Arguments}
+
+\begin{asparadesc}
+%
+\item[\code{message}] \hfill \\
+The message.
+%
+\item[\code{args}] \hfill \\
+The arguments for the message.
+%
+\end{asparadesc}
+
+\paragraph{Properties}
+
+\begin{asparadesc}
+%
+\item[\code{name}] \hfill \\
+The name of the logger that is used. Should return the class name of the current
+script.
+%
+\end{asparadesc}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_info}]
+info "The info message."
+info "The variable {} should be {}.", variable, expected
+info "The variable $variable should be $expected."
+\end{lstlisting}
+
