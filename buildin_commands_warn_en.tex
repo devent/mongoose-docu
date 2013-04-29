@@ -1,20 +1,17 @@
 \TheCommand{warn}%
 \Command{warn message [, args]}
 
-\TypeTable{warn & implements Command \\}{%
-% constructors
-\midrule
+\TypeTable{warn \\}{%
 % properties
-name \\
-\midrule
+theContext \\
+isEnabled \\
+%\midrule
 % operators
 }
 
 Log a message at the warn level of the logger.
 The logging facade Slf4j\cite{slf4j13} is used and the used logger is
 the global script logger.
-
-\paragraph{Arguments}
 
 \begin{asparadesc}
 %
@@ -24,21 +21,32 @@ The message.
 \item[\code{args}] \hfill \\
 The arguments for the message.
 %
-\end{asparadesc}
-
-\paragraph{Properties}
-
-\begin{asparadesc}
-%
-\item[\code{name}] \hfill \\
+\item[\code{theContext}] \hfill \\
 The name of the logger that is used. Should return the class name of the current
 script.
 %
+\item[\code{isEnabled}] \hfill \\
+Tests if the warn level is enabled. Is \code{true} if the warn level is enabled;
+\code{false} if not.
+%
 \end{asparadesc}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_warn}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_warn1}, title={%
+Outputs a warn logging message with arguments.}]
 warn "The warn message."
 warn "The variable {} should be {}.", variable, expected
 warn "The variable $variable should be $expected."
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_warn2}, title={%
+Prints the name of the current logger.}]
+echo warn.theContext
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_warn3}, title={%
+Tests if the warn level is enabled.}]
+if (warn.isEnabled) {
+    warn "The warn message."
+}
 \end{lstlisting}
 

@@ -1,18 +1,14 @@
 \TheCommand{run}%
 \Command{run [handler,] [, destroyer] [, watchdog] [, timeout] cmd [, env] [, directory]}
 
-\TypeTable{run & implements Command \\}{%
-% constructors
-\midrule
+\TypeTable{run \\}{%
 % properties
-\midrule
+%\midrule
 % operators
 }
 
-Executes the specified command in a separate process with the
-specified environment and working directory.
-
-\paragraph{Arguments}
+Executes the specified external command in a separate process with the
+specified environment and working directory. It can not execute build-in commands.
 
 \begin{asparaitem}
 %
@@ -49,7 +45,8 @@ and saved in the \Variable*{PWD} variable.
 %
 \end{asparaitem}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_run}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_run}, title={
+Examples to execute external commands.}]
 run "ls -al"
 run "javap -private", "path=/home/user/java6/bin"
 run "mvn package", [JAVA_HOME: "/home/user/java6"]

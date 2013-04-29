@@ -1,27 +1,22 @@
 \TheCommand{listFiles}%
 \Command{listFiles [recursive, depth, includeSubDirectories,\\ filter, filterType] [files]}
 
-\TypeTable{listFiles & implements Command \\}{%
-% constructors
-\midrule
+\TypeTable{listFiles \\}{%
 % properties
-& theFiles \\
-& recursive \\
-& depth \\
-& includeSubDirectories \\
-& filter \\
-& filterType \\
-\midrule
+recursive \\
+depth \\
+includeSubDirectories \\
+filter \\
+filterType \\
+theFiles \\
+%\midrule
 % operators
-& asType \\
 }
 
 Search all files with the specified file names. The file names can contain 
 directory listings and wildcats \codequoted{*?} or regular expressions.
 If no file names are specified, as default all files are returned in the 
 current working directory.
-
-\paragraph{Arguments}
 
 \begin{asparadesc}
 %
@@ -59,31 +54,25 @@ are:
 \item \Type{WildcardFileFilter}
 \end{compactitem}
 %
-\end{asparadesc}
-
-\paragraph{Properties}
-
-\begin{asparadesc}
-%
 \item[\code{theFiles}] \hfill \\
 The files that are found in the directories.
 %
 \end{asparadesc}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_listFiles_simple}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_listFiles_simple}, title={%
+List files in the current working directory.}]
 def files = listFiles().theFiles
-def files = listFiles() as List
 def files = listFiles "*.txt" theFiles
-def files = listFiles("*.txt") as List
 \end{lstlisting}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_listFiles_arguments}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_listFiles_arguments}, title={%
+List files in the current working directory with some additional arguments.}]
 def files = listFiles recursive: true, depth: 5, "*.txt" theFiles
 def files = listFiles depth: 5, "*.txt" theFiles
-def files = listFiles(depth: 5, "*.txt") as List
 \end{lstlisting}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_listFiles_iterate}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_listFiles_iterate}, title={%
+Iterate over the found files.}]
 listFiles() theFiles.each {
     echo it
 }
@@ -92,7 +81,8 @@ listFiles "*.jpg" theFiles.each {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_listFiles_filter}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_listFiles_filter}, title={%
+List files using a custom file filter.}]
 def myfilter = [accept: { it.name =~ /.*txt/ }] as FileFilter
 def files = listFiles filter: myfilter, "path/to/files"
 def files = listFiles filterType: RegexFileFilter, "path/to/files/[abc].*"

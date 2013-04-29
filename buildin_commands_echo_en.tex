@@ -1,19 +1,15 @@
 \TheCommand{echo}%
 \Command{echo [newLine,] arguments...}
 
-\TypeTable{echo & implements Command \\}{%
-% constructors
-\midrule
+\TypeTable{echo \\}{%
 % properties
-\midrule
+%\midrule
 % operators
 }
 
 Outputs the arguments separated by spaces to the standard output. After 
 the arguments a new line will be added. The argument \code{newLine} can be set
 to \code{false} if no new line should be added.
-
-\paragraph{Arguments}
 
 \begin{asparadesc}
 %
@@ -26,10 +22,17 @@ can be any object, a list of objects or enumeration of objects.
 %
 \end{asparadesc}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_echo}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_echo1}, title={%
+Print the message to the standard output with an additional line break.}]
 echo
 echo PWD
-echo "Hello"
+echo "Hello World"
+echo "Hello", "World"
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_echo2}, title={%
+Print the message to the standard output with surpressed line break.}]
+echo newline: false, "Hello World"
 echo newline: false, "Hello", "World"
 \end{lstlisting}
 

@@ -1,14 +1,12 @@
 \TheCommand{parse}%
 \Command{parse [arguments,] [valid,] [notValid,] parameter}
 
-\TypeTable{parse & implements Command \\}{%
-% constructors
-\midrule
+\TypeTable{parse \\}{%
 % properties
-& theParameter \\
-& arguments \\
-& valid \\
-& notValid \\
+theParameter \\
+arguments \\
+valid \\
+notValid \\
 \midrule
 % operators
 }
@@ -25,8 +23,6 @@ Args4j\cite{args4j13} annotations:
 \item \Type{Argument};
 \item \Type{Option};
 \end{inparaitem}
-
-\paragraph{Arguments}
 
 \begin{asparadesc}
 %
@@ -45,27 +41,24 @@ errors.
 Sets the parameter Java bean object. After the command line arguments are parsed
 the annotated fields contain the parsed values.
 %
-\end{asparadesc}
-
-\paragraph{Properties}
-
-\begin{asparadesc}
-%
 \item[\code{theParameter}] \hfill \\
 The parameter Java bean object. After the command line arguments are parsed
 the annotated fields contain the parsed values.
 %
 \end{asparadesc}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_arguments_parse}, title={\Command{parse} command: storing the parse command in a variable and set the arguments and parse the command line arguments at a later point.}]
-def parser = builtin parse
+\begin{lstlisting}[style=Groovybash, label={lst:example_arguments_parse}, title={%
+\Command{parse} command: storing the parse command in a variable and set 
+the arguments and parse the command line arguments at a later point.}]
+def parser = parse.args new Parameter()
 parser.valid = { convertFiles(it) }
 parser.notValid = { printHelp() }
-parser.parameter = new Parameter()
 parser()
 \end{lstlisting}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_arguments_parse}, title={\Command{parse} command: parse command line arguments; valid and not-valid closures are called depending on whether the arguments are valid.}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_arguments_parse}, title={%
+\Command{parse} command: parse command line arguments; valid and not-valid 
+closures are called depending on whether the arguments are valid.}]
 parse valid: { convertFiles(it) },
     notValid: { printHelp() },
     new Parameter()

@@ -1,11 +1,9 @@
 \TheCommand{pwd}%
 \Command{pwd}
 
-\TypeTable{pwd & implements Command \\}{%
-% constructors
-\midrule
+\TypeTable{pwd \\}{%
 % properties
-\midrule
+%\midrule
 % operators
 }
 
@@ -13,7 +11,8 @@ Prints the absolute path of the current working directory to the
 standard output. The current working
 directory is stored in the \Variable*{PWD} variable.
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_pwd}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_pwd}, title={
+Change and print the new current working directory.}]
 cd "/some/place"
 pwd
 \end{lstlisting}

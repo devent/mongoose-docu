@@ -1,12 +1,11 @@
 \TheCommand{log}%
 \Command{log type|object|name}
 
-\TypeTable{log & implements Command \\}{%
-% constructors
-\midrule
+\TypeTable{log \\}{%
 % properties
-name \\
-\midrule
+theContext \\
+isEnabled \\
+%\midrule
 % operators
 }
 
@@ -14,20 +13,23 @@ Creates a new logger for the specified type, object or name.
 The logging facade Slf4j\cite{slf4j13} is used and the created logger 
 is of type \Type{Logger}\cite{logger13}.
 
-\paragraph{Properties}
-
 \begin{asparadesc}
 %
-\item[\code{name}] \hfill \\
-The name of the logger that was created.
+\item[\code{theContext}] \hfill \\
+The name of the logger that is used. Should return the class name of the current
+script.
+%
+\item[\code{isEnabled}] \hfill \\
+Tests if the info level is enabled. Is \code{true} if the info level is enabled;
+\code{false} if not.
 %
 \end{asparadesc}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_log}]
-// sets the logger for the script:
-mylogger = log this
-mylogger = log "myscript"
-mylogger = log MyClass
+\begin{lstlisting}[style=Groovybash, label={lst:example_log}, title={%
+Creates a new logger with the context.}]
+def mylogger = log this
+def mylogger = log "myscript"
+def mylogger = log MyClass
 mylogger.debug "Debug message for FooClass."
 \end{lstlisting}
 

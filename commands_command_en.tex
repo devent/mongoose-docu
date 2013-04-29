@@ -1,31 +1,29 @@
 \subsection{Command} 
 
 \TheType{Command}%
-\TypeTable{Command & \\}{%
-% constructors
-\midrule
+\TypeTable{Command \\}{%
 % properties
-& theName \\
-& theEnvironment \\
-& args \\
-& inputStream \\
-& input \\
-& outputStream \\
-& output \\
-& errorStream \\
-& error \\
+theName \\
+theEnvironment \\
+args \\
+inputStream \\
+input \\
+outputStream \\
+output \\
+errorStream \\
+error \\
 \midrule
 % operators
-& call \\
-& addVetoableChangeListener \\
-& removeVetoableChangeListener \\
+call() \\
+addVetoableChangeListener() \\
+removeVetoableChangeListener() \\
 }
 
 The \Type{Command} type defines the interface for all external and
-build-in commands. The function of the properties and operators is described
+build-in commands. All commands inherit the properties and operators
+from the \Type{Command} type.
+The function of the properties and operators is described
 in the next sections.
-
-\paragraph{Properties:}
 
 \begin{asparadesc}
 %

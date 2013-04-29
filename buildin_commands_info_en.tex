@@ -1,12 +1,11 @@
 \TheCommand{info}%
-\Command{info message [, args]}
+\Command{info message [, arguments...]}
 
-\TypeTable{info & implements Command \\}{%
-% constructors
-\midrule
+\TypeTable{info \\}{%
 % properties
-name \\
-\midrule
+theContext \\
+isEnabled \\
+%\midrule
 % operators
 }
 
@@ -14,31 +13,40 @@ Log a message at the info level of the logger.
 The logging facade Slf4j\cite{slf4j13} is used and the used logger is
 the global script logger.
 
-\paragraph{Arguments}
-
 \begin{asparadesc}
 %
 \item[\code{message}] \hfill \\
 The message.
 %
-\item[\code{args}] \hfill \\
+\item[\code{arguments...}] \hfill \\
 The arguments for the message.
 %
-\end{asparadesc}
-
-\paragraph{Properties}
-
-\begin{asparadesc}
-%
-\item[\code{name}] \hfill \\
+\item[\code{theContext}] \hfill \\
 The name of the logger that is used. Should return the class name of the current
 script.
 %
+\item[\code{isEnabled}] \hfill \\
+Tests if the info level is enabled. Is \code{true} if the info level is enabled;
+\code{false} if not.
+%
 \end{asparadesc}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_info}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_info1}, title={%
+Outputs a info logging message with arguments.}]
 info "The info message."
 info "The variable {} should be {}.", variable, expected
 info "The variable $variable should be $expected."
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_info2}, title={%
+Prints the name of the current logger.}]
+echo info.theContext
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_info3}, title={%
+Tests if the info level is enabled.}]
+if (info.isEnabled) {
+    info "The info message."
+}
 \end{lstlisting}
 

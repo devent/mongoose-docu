@@ -1,12 +1,11 @@
 \TheCommand{error}%
-\Command{error message [, args]}
+\Command{error message [, arguments...]}
 
-\TypeTable{error & implements Command \\}{%
-% constructors
-\midrule
+\TypeTable{error \\}{%
 % properties
-name \\
-\midrule
+theContext \\
+isEnabled \\
+%\midrule
 % operators
 }
 
@@ -14,31 +13,40 @@ Log a message at the error level of the logger.
 The logging facade Slf4j\cite{slf4j13} is used and the used logger is
 the global script logger.
 
-\paragraph{Arguments}
-
 \begin{asparadesc}
 %
 \item[\code{message}] \hfill \\
 The message.
 %
-\item[\code{args}] \hfill \\
+\item[\code{arguments...}] \hfill \\
 The arguments for the message.
 %
-\end{asparadesc}
-
-\paragraph{Properties}
-
-\begin{asparadesc}
-%
-\item[\code{name}] \hfill \\
+\item[\code{theContext}] \hfill \\
 The name of the logger that is used. Should return the class name of the current
 script.
 %
+\item[\code{isEnabled}] \hfill \\
+Tests if the error level is enabled. Is \code{true} if the error level is enabled;
+\code{false} if not.
+%
 \end{asparadesc}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_error}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_error1}, title={%
+Outputs a error logging message with arguments.}]
 error "The error message."
 error "The variable {} should be {}.", variable, expected
 error "The variable $variable should be $expected."
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_error2}, title={%
+Prints the name of the current logger.}]
+echo error.theContext
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_error3}, title={%
+Tests if the error level is enabled.}]
+if (error.isEnabled) {
+    error "The error message."
+}
 \end{lstlisting}
 

@@ -1,13 +1,11 @@
 \TheCommand{debug}%
-\Command{debug message [, args]}
+\Command{debug message [, arguments...]}
 
-\TypeTable{debug & implements Command \\}{%
-% constructors
-\midrule
+\TypeTable{debug \\}{%
 % properties
 theContext \\
 isEnabled \\
-\midrule
+%\midrule
 % operators
 }
 
@@ -20,7 +18,7 @@ the global script logger.
 \item[\code{message}] \hfill \\
 The message.
 %
-\item[\code{args}] \hfill \\
+\item[\code{arguments...}] \hfill \\
 The arguments for the message.
 %
 \item[\code{theContext}] \hfill \\
@@ -33,17 +31,20 @@ Tests if the debug level is enabled. Is \code{true} if the debug level is enable
 %
 \end{asparadesc}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_debug1}, title={Outputs a debug logging message with arguments.}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_debug1}, title={%
+Outputs a debug logging message with arguments.}]
 debug "The debug message."
 debug "The variable {} should be {}.", variable, expected
 debug "The variable $variable should be $expected."
 \end{lstlisting}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_debug2}, title={Prints the name of the current logger.}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_debug2}, title={%
+Prints the name of the current logger.}]
 echo debug.theContext
 \end{lstlisting}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_debug3}, title={Tests if the debug level is enabled.}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_debug3}, title={%
+Tests if the debug level is enabled.}]
 if (debug.isEnabled) {
     debug "The debug message."
 }
