@@ -57,7 +57,15 @@ the annotated fields contain the parsed values.
 %
 \end{asparadesc}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_arguments_parse}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_arguments_parse}, title={\Command{parse} command: storing the parse command in a variable and set the arguments and parse the command line arguments at a later point.}]
+def parser = builtin parse
+parser.valid = { convertFiles(it) }
+parser.notValid = { printHelp() }
+parser.parameter = new Parameter()
+parser()
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_arguments_parse}, title={\Command{parse} command: parse command line arguments; valid and not-valid closures are called depending on whether the arguments are valid.}]
 parse valid: { convertFiles(it) },
     notValid: { printHelp() },
     new Parameter()

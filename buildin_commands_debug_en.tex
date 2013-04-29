@@ -5,7 +5,8 @@
 % constructors
 \midrule
 % properties
-name \\
+theContext \\
+isEnabled \\
 \midrule
 % operators
 }
@@ -13,8 +14,6 @@ name \\
 Log a message at the debug level of the logger.
 The logging facade Slf4j\cite{slf4j13} is used and the used logger is
 the global script logger.
-
-\paragraph{Arguments}
 
 \begin{asparadesc}
 %
@@ -24,21 +23,29 @@ The message.
 \item[\code{args}] \hfill \\
 The arguments for the message.
 %
-\end{asparadesc}
-
-\paragraph{Properties}
-
-\begin{asparadesc}
-%
-\item[\code{name}] \hfill \\
+\item[\code{theContext}] \hfill \\
 The name of the logger that is used. Should return the class name of the current
 script.
 %
+\item[\code{isEnabled}] \hfill \\
+Tests if the debug level is enabled. Is \code{true} if the debug level is enabled;
+\code{false} if not.
+%
 \end{asparadesc}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_debug}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_debug1}, title={Outputs a debug logging message with arguments.}]
 debug "The debug message."
 debug "The variable {} should be {}.", variable, expected
 debug "The variable $variable should be $expected."
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_debug2}, title={Prints the name of the current logger.}]
+echo debug.theContext
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_debug3}, title={Tests if the debug level is enabled.}]
+if (debug.isEnabled) {
+    debug "The debug message."
+}
 \end{lstlisting}
 

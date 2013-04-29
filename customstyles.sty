@@ -32,14 +32,14 @@
 %%%%
 % Format listings
 \lstdefinelanguage{Groovybash}[]{Groovy}{%
-morekeywords={cd,echo,exit,lfiles,printf,println,print,run,pwd},
-morekeywords=[2]{DirectoryNotFound},
-morekeywords=[3]{HOME,USER_HOME,CDPATH,PWD}
+morekeywords={},
+morekeywords=[2]{cd,echo,exit,listFiles,printf,println,print,run,pwd,parse},
+morekeywords=[3]{DirectoryNotFound,HOME,USER_HOME,CDPATH,PWD}
 }
 
 \lstdefinestyle{Groovybash}
 {language=Groovybash, style=nonumbers, basicstyle=\small,
-emph={},emphstyle=\textbf,
+emph={},emphstyle=\color{MediumBlue}\ttfamily,
 emph={[2]DirectoryNotFound},emphstyle={[2]\textbf},
 emph={[3]HOME,USER_HOME},emphstyle={[3]\textbf}}
 %%%%
@@ -53,28 +53,28 @@ emph={[3]HOME,USER_HOME},emphstyle={[3]\textbf}}
 % Different formats
 % Operator
 \newcommand{\initmarginpar}[1]{\leavevmode\marginpar{\flushright{#1}}\ignorespaces}
-\definecolor{OperatorColor}{rgb}{0.6,0,0}
+\definecolor{OperatorColor}{named}{MediumBlue}
 \newcommand{\TheOperator}[1]{\initmarginpar{\textcolor{OperatorColor}{\ttfamily\bfseries#1}}}
 \newcommand{\Operator}[1]{{\ttfamily\bfseries#1}}
 \WithSuffix\newcommand\Operator*[1]{\code{#1}}
-% Command
-\definecolor{CommandColor}{rgb}{0.6,0,0}
+% Command   
+\definecolor{CommandColor}{named}{MediumBlue}
 \newcommand{\TheCommand}[2][empty]{\AutoLabel[#1]{#2}\initmarginpar{\textcolor{CommandColor}{\ttfamily\bfseries#2}}}
 \newcommand{\Command}[1]{{\ttfamily\bfseries#1}}
 \WithSuffix\newcommand\Command*[2][empty]{\Command{#2} (\AutoRef[#1]{#2})}
 % Variable
-\definecolor{VariableColor}{rgb}{0.6,0,0}
+\definecolor{VariableColor}{named}{MediumBlue}
 \newcommand{\TheVariable}[2][empty]{\AutoLabel[#1]{#2}\initmarginpar{\textcolor{VariableColor}{\ttfamily\bfseries#2}}}
 \newcommand{\Variable}[1]{{\ttfamily\bfseries#1}}
 \WithSuffix\newcommand\Variable*[2][empty]{\Variable{#2} (\AutoRef[#1]{#2})}
 % Exception
-\definecolor{ExceptionColor}{rgb}{0.6,0,0}
+\definecolor{ExceptionColor}{named}{MediumBlue}
 \newcommand{\TheException}[2][empty]{\AutoLabel[#1]{#2}\marginpar{\textcolor{TypeColor}{\begin{flushright}\ttfamily\bfseries#2\end{flushright}}}}
 \newcommand{\TheExceptionLine}[1]{\initmarginpar{\textcolor{ExceptionColor}{\ttfamily\bfseries#1}}}
 \newcommand{\Exception}[1]{{\ttfamily\bfseries#1}}
 \WithSuffix\newcommand\Exception*[2][empty]{\Exception{#2} (\AutoRef[#1]{#2})}
 % Type
-\definecolor{TypeColor}{rgb}{0.6,0,0}
+\definecolor{TypeColor}{named}{MediumBlue}
 \newcommand{\TheType}[2][empty]{\AutoLabel[#1]{#2}\marginpar{\textcolor{TypeColor}{\begin{flushright}\ttfamily\bfseries#2\end{flushright}}}}
 \newcommand{\TheTypeLine}[1]{\initmarginpar{\textcolor{TypeColor}{\ttfamily\bfseries#1}}}
 \newcommand{\Type}[1]{{\textsc{\small #1}}}
@@ -103,8 +103,9 @@ emph={[3]HOME,USER_HOME},emphstyle={[3]\textbf}}
 \newcommand{\cbf}[2]{\multicolumn{1}{#1}{\textbf{#2}}}
 \newcommand{\mcl}[2]{\multicolumn{#1}{l}{#2}}
 
+\newcommand\textvtt[1]{{\normalfont\fontfamily{cmvtt}\selectfont #1}}
 \newcommand{\file}{\texttt}
-\newcommand{\code}[1]{\texttt{\bfseries #1}}
+\newcommand{\code}[1]{\textvtt{\bfseries #1}}
 \newcommand{\parparameter}[1]{\paragraph{\texttt{#1}}}
 \newcommand{\parcommand}{{\bfseries}}
 \newcommand{\partype}[1]{\texttt{\textsc{#1}}}
@@ -119,7 +120,10 @@ emph={[3]HOME,USER_HOME},emphstyle={[3]\textbf}}
 
 \reversemarginpar
 
+% custom hyphenations
 \hyphenation{IO-Exception}
 \hyphenation{Execute-Exception}
 \hyphenation{Command-Exception}
 \hyphenation{include-Sub-Directories}
+
+

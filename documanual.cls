@@ -30,6 +30,8 @@
 % Font
 \RequirePackage{bookman}
 \RequirePackage[T1]{fontenc}
+% footnotes
+\RequirePackage[perpage,symbol*]{footmisc}
 % multi-cols environment
 \RequirePackage{multicol}
 %

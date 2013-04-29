@@ -15,7 +15,7 @@ to a string and passed to the command as command line arguments.
 List of arguments, maps and named arguments are passed to the command
 in the order they are given.
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_call_op}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_call_op}, title={Execute command with no arguments or with specified arguments either direct or by key=value pairs.}]
 echo()
 cat file
 cat "-n", file
@@ -31,8 +31,12 @@ command in the background.
 The operator can set the arguments for the command like the \Operator{call()}
 operator. The return value is a \Type{Future}\cite{future13} of the command.
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_call_op}]
-echo.background()
+\begin{lstlisting}[style=Groovybash, label={lst:example_background1}, title={Starts the command in the background and waits for the command to finish at some later time.}]
+def task = command.background()
+task.get()
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_background2}, title={Pass arguments to the command either direct or by key=value pairs.}]
 cat.background file
 cat.background "-n", file
 cat.background "-n": file
@@ -45,12 +49,18 @@ command.background one: foo, two: bar
 
 The \Operator{args()} operator sets the arguments for the command, like 
 the \Operator{call()} operator, but will not execute the command. The return
-value is the command.
+value is the command. The command can be executed at a later time by invoking
+the \Operator{call()} operator.
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_args_op}]
-cat.args(file)
-cat.args "-n", file
-cat.args "-n": file
-command.args one: foo, two: bar
+\begin{lstlisting}[style=Groovybash, label={lst:example_args1}, title={Store the command in a variable with no arguments given.}]
+def mycommand = command.args()
+mycommand()
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_args2}, title={Store the command in a variable with arguments given either direct or by key=value pairs.}]
+def mycat = cat.args file
+def mycat = cat.args "-n", file
+def mycat = cat.args "-n": file
+mycat()
 \end{lstlisting}
 

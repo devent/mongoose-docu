@@ -1,17 +1,17 @@
-\label{par:variable_script_home}
-\parparameter{\parcommand{SCRIPT\_HOME}}
+\TheVariable[SCRIPT_HOME]{SCRIPT\_HOME}%
+\Variable{SCRIPT\_HOME}
 
-The \parcommand{SCRIPT\_HOME} build-in variable to hold the home directory
-of the script. The home directory is set by the
-system property \code{com.anrisoftware.groovybash.script\_home}.
-The home path of the script is where the script is located.
+Hold the home directory of the script. 
+The home directory of the script is where the script was located when
+the script was started.
 
-\subparagraph{Example:}
+The home directory of the script can be set by the \\
+property \code{com.anrisoftware.mongoose.script\_home}.
 
 \begin{lstlisting}[style=Groovybash, label={lst:example_variable_script_home}]
-$ java -Dcom.anrisoftware.groovybash.script_home="/path/to/script" -jar groovybash.jar -i Script.groovy
+$ java -Dcom.anrisoftware.mongoose.script_home="/path/to/script" -jar mongoose.jar -i Script.groovy
 
-> echo SCRIPT_HOME
+echo SCRIPT_HOME
 "/path/to/script"
 \end{lstlisting}
 

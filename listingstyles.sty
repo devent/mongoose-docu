@@ -7,9 +7,32 @@
 \ProvidesPackage{listingstyles}[2011/11/09 v1.0 Configure custom listings styles]
 
 \RequirePackage{listings}
+\RequirePackage{caption}
+\RequirePackage[usenames,svgnames]{xcolor}
 
-\lstdefinestyle{numbers}
-{breaklines, numbers=left, stepnumber=1, numberstyle=\tiny, numbersep=10pt, basicstyle=\scriptsize, frame=lrtb, xleftmargin=6pt, numbersep=4pt, captionpos=b}
+\DeclareCaptionFont{white}{\color{DimGrey}}
+\DeclareCaptionFormat{listing}{\colorbox[named]{Gainsboro}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+
+\lstdefinestyle{numbers} {
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true, 
+    keywordstyle=\color{red},
+    keywordstyle=[1]\color{DarkMagenta}\textbf,
+    keywordstyle=[2]\color{MediumBlue},
+    keywordstyle=[3]\textbf,
+    keywordstyle=[4]\textbf,
+    numbers=left, 
+    stepnumber=1, 
+    numberstyle=\tiny, 
+    numbersep=5pt, 
+    frame=b, 
+    stringstyle=\color{Magenta}\ttfamily,
+    xleftmargin=17pt, 
+    framexrightmargin=5pt,
+    framexbottommargin=4pt,
+    showstringspaces=false,
+    captionpos=t}
 \lstdefinestyle{nonumbers}
 {style=numbers,numbers=none}
 \lstdefinestyle{Bash}
@@ -21,6 +44,5 @@
 \lstdefinestyle{R}
 {language=R,style=numbers}
 
-\RequirePackage{color}
-\definecolor{lstbackgroundcolor}{rgb}{0.95,1.0,1.0}
+\definecolor{lstbackgroundcolor}{named}{AliceBlue}
 \lstset{backgroundcolor=\color{lstbackgroundcolor}}

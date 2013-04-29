@@ -1,7 +1,17 @@
 \section{Build-In Variables}
 
+Build-in variables storing various parameter of the script.
+Those variables can be accessed anywhere in the script. 
+
+In addition to the described variables the system environment can
+be accessed inside the script. The system environment is a 
+system-dependent mapping of variable names to values that is passed from
+the parent process to the child process. The variables of the system environment
+are normally in upper case with an underscore as word separator\footnote{for example SSH\_AGENT\_PID, HOSTNAME, M2\_HOME, PATH}.
+
 \input{buildin_variable_args_en}
 %\input{buildin_variable_cdpath_en}
+\input{buildin_variable_locale_en}
 \input{buildin_variable_user_home_en}
 \input{buildin_variable_pwd_en}
 \input{buildin_variable_script_home_en}

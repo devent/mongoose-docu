@@ -1,0 +1,26 @@
+\TheVariable{LOCALE}%
+\Variable{LOCALE}
+
+The current locale of the script; the locale is of 
+type \Type{Locale}\cite{locale13}. The script resources 
+are loaded based on the locale. 
+
+The locale can be changed by either setting the variable to
+a different locale or by calling 
+\code{Locale\#setDefault(Locale.Category, Locale)} or
+\code{Locale\#setDefault(Locale)}.
+
+While the \Variable{LOCALE} variable is initially set to the value of the environment
+\code{LANG}, any change to the \Variable{LOCALE}\cite{posixenviron13} variable does not affect the
+environment of child processes of the script. To do that, the environment of
+the child process must be set, see \Command*{run} command.
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_variable_pwd}]
+echo LOCALE
+>> en_US
+LOCALE = Locale.GERMANY
+Locale.setDefault Locale.GERMANY
+echo LOCALE
+>> de_DE
+\end{lstlisting}
+

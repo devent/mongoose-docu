@@ -1,5 +1,5 @@
 \TheCommand{run}%
-\Command{run [handler,] [, destroyer] [, watchdog] [, timeout] cmd [, envp] [, directory]}
+\Command{run [handler,] [, destroyer] [, watchdog] [, timeout] cmd [, env] [, directory]}
 
 \TypeTable{run & implements Command \\}{%
 % constructors
@@ -36,7 +36,7 @@ sets the timeout for the process. Defaults to an infinite
 timeout \code{ExecuteWatchdog} \code{\#INFINITE\_TIMEOUT}. Can be set to a positive
 number or a \Type{Duration}\cite{duration13}.
 %
-\item[\code{envp}] \hfill \\
+\item[\code{env}] \hfill \\
 the system-dependent mapping from variables
 to values. The initial value is a copy of the environment of the current
 script. Can be a string containing \code{name=value} tupels
