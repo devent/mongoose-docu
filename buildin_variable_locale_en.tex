@@ -15,12 +15,17 @@ While the \Variable{LOCALE} variable is initially set to the value of the enviro
 environment of child processes of the script. To do that, the environment of
 the child process must be set, see \Command*{run} command.
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_variable_pwd}]
+\begin{lstlisting}[style=Groovybash, label={lst:example_variable_pwd}, title={
+Change the locale by using the variable.}]
 echo LOCALE
->> en_US
+>>> en_US
 LOCALE = Locale.GERMANY
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_variable_pwd}, title={
+Change the locale by using the static method.}]
 Locale.setDefault Locale.GERMANY
 echo LOCALE
->> de_DE
+>>> de_DE
 \end{lstlisting}
 
