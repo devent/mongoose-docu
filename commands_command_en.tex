@@ -28,7 +28,14 @@ in the next sections.
 \begin{asparadesc}
 %
 \item[\code{theName}] \hfill \\
-the name of the external or build-in command.
+the name of the command. The name is unique to build-in commands; for external
+commands the name is the basename\cite{basename13} of the command.
+The property can only be read.
+%
+\item[\code{theEnvironment}] \hfill \\
+the current environment of the command. The environment contains the
+build-in variables of the script and is the context in which a command is executed.
+The property can only be read.
 %
 \end{asparadesc}
 

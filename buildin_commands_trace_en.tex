@@ -23,11 +23,12 @@ The arguments for the message.
 %
 \item[\code{theContext}] \hfill \\
 The name of the logger that is used. Should return the class name of the current
-script.
+script. The property can only be read.
 %
 \item[\code{isEnabled}] \hfill \\
 Tests if the trace level is enabled. Is \code{true} if the trace level is enabled;
-\code{false} if not.
+\code{false} if not. The property can only be read; whether or not the trace
+level is enabled is configured by the global script logger.
 %
 \end{asparadesc}
 

@@ -1,8 +1,14 @@
 \TheCommand{run}%
-\Command{run [handler,] [, destroyer] [, watchdog] [, timeout] cmd [, env] [, directory]}
+\Command{run [handler,] [, destroyer] [, watchdog] [, timeout] cmd [, env] \\~ [, directory]}
 
 \TypeTable{run \\}{%
 % properties
+handler \\
+destroyer \\
+watchdog \\
+timeout \\
+env \\
+directory \\
 %\midrule
 % operators
 }
@@ -45,10 +51,18 @@ and saved in the \Variable*{PWD} variable.
 %
 \end{asparaitem}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_run}, title={
+\begin{lstlisting}[style=Groovybash, label={lst:example_run1}, title={
 Examples to execute external commands.}]
 run "ls -al"
 run "javap -private", "path=/home/user/java6/bin"
 run "mvn package", [JAVA_HOME: "/home/user/java6"]
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_run2}, title={
+Deleyed execution of external commands.}]
+def command = run.args "ls -al"
+command.directory = "/tmp"
+command.timeout = 500
+command()
 \end{lstlisting}
 
