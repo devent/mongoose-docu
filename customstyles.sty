@@ -54,9 +54,9 @@ emph={[3]},emphstyle={[3]}}
 % Operator
 \newcommand{\initmarginpar}[1]{\leavevmode\marginpar{\flushright{#1}}\ignorespaces}
 \definecolor{OperatorColor}{named}{MediumBlue}
-\newcommand{\TheOperator}[1]{\initmarginpar{\textcolor{OperatorColor}{\ttfamily\bfseries#1}}}
+\newcommand{\TheOperator}[2][empty]{\AutoLabel[#1]{#2}\initmarginpar{\textcolor{OperatorColor}{\ttfamily\bfseries#2}}}
 \newcommand{\Operator}[1]{{\ttfamily\bfseries#1}}
-\WithSuffix\newcommand\Operator*[1]{\code{#1}}
+\WithSuffix\newcommand\Operator*[2][empty]{\Operator{#2} (\AutoRef[#1]{#2})}
 % Command   
 \definecolor{CommandColor}{named}{MediumBlue}
 \newcommand{\TheCommand}[2][empty]{\AutoLabel[#1]{#2}\initmarginpar{\textcolor{CommandColor}{\ttfamily\bfseries#2}}}

@@ -98,7 +98,7 @@ the left to the object specified on the right side, like the \Operator{output}, 
 files and streams are appended instead of overridden.
 The result of the operator will be the finished command.
 
-\TheOperator{| operator}%
+\TheOperator[pipe]{| operator}%
 \Operator{command | command}
 
 The \Operator{|} creates a pipe between the left command and the right command.
@@ -109,7 +109,7 @@ last command executed.
 cat.args(file) | column | echo
 \end{lstlisting}
 
-\TheOperator{pipe()}%
+\TheOperator[pipe()]{pipe()}%
 \Operator{pipe(command)}
 
 The \Operator{pipe()} operator creates a pipe between the left command 

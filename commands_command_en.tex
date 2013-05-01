@@ -12,6 +12,7 @@ outputStream \\
 output \\
 errorStream \\
 error \\
+pipeBufferSize \\
 \midrule
 % operators
 call() \\
@@ -36,6 +37,12 @@ The property can only be read.
 the current environment of the command. The environment contains the
 build-in variables of the script and is the context in which a command is executed.
 The property can only be read.
+%
+\item[\code{pipeBufferSize}] \hfill \\
+the size of the buffer for the pipe between two commands. The size will affect
+the left hand size command of the \Operator*{pipe} operator.
+Default is set to
+1024 bytes.
 %
 \end{asparadesc}
 
