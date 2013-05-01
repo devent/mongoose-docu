@@ -25,31 +25,31 @@ The exceptions are logged by the commands and their operators. Depending of the
 logging level either the whole stack trace is logged or just an error message.
 
 \TheException{CommandException}%
-\TypeTable{CommandException & \code{extends} IOException\cite{ioexception13} \\}{%
+\TypeTable{CommandException \code{extends} IOException\cite{ioexception13} \\}{%
 % constructors
-& CommandException(message, cause) \\
-& CommandException(message) \\
+CommandException(message, cause) \\
+CommandException(message) \\
 \midrule
 % properties
-& context \\
+context \\
 \midrule
 % operators
-& addContext \\
+addContext \\
 }
 
 Exception thrown if the command encounters an error while executing.
 
 \TheException{ExecuteException}%
-\TypeTable{ExecuteException & \code{extends} CommandException \\}{%
+\TypeTable{ExecuteException \code{extends} CommandException \\}{%
 % constructors
-& ExecutionException(message, cause, exitValue) \\
-& ExecutionException(message, exitValue) \\
+ExecutionException(message, cause, exitValue) \\
+ExecutionException(message, exitValue) \\
 \midrule
 % properties
-& theValue \\
+theValue \\
 \midrule
 % operators
-& addContext \\
+addContext \\
 }
 
 As a convention a command returning an exit value \code{0} returns 
@@ -83,15 +83,15 @@ try {
 \end{lstlisting}
 
 \TheException[DirectoryNotFoundException]{DirectoryNotFound\\Exception}%
-\TypeTable{DirectoryNotFoundException & \code{extends} FileNotFoundException\cite{filenotfoundexception13} \\}{%
+\TypeTable{DirectoryNotFoundException \code{extends} FileNotFoundException\cite{filenotfoundexception13} \\}{%
 % constructors
-& DirectoryNotFoundException(directory) \\
+DirectoryNotFoundException(directory) \\
 \midrule
 % properties
-& theDirectory \\
+theDirectory \\
 \midrule
 % operators
-& addContext \\
+addContext \\
 }
 
 Thrown if the specified directory path could not be found or read. 
