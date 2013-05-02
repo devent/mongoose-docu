@@ -3,12 +3,15 @@
 
 \TypeTable{parse \\}{%
 % properties
-theParameter \\
 arguments \\
 valid \\
 notValid \\
+theParameter \\
 \midrule
 % operators
+printExample() \\
+printSingleLineUsage() \\
+printUsage() \\
 }
 
 Parse the specified command line parameter. If no 
@@ -41,10 +44,44 @@ errors.
 The parameter Java bean object. After the command line arguments are parsed
 the annotated fields contain the parsed values. The property can only be read.
 %
+\item[\code{printExample(exampleMode [, resourceBundle])}] \hfill \\
+Returns an example of the command line arguments.
+\begin{compactdesc}
+%
+\item[\code{exampleMode}]
+the \Type{ExampleMode}\cite{examplemode13} to use. Can be:
+\begin{compactitem}
+\item \code{ExampleMode.ALL} to return all defined options in the example; 
+\item \code{ExampleMode.REQUIRED} to return only the required options in the example; 
+\end{compactitem}
+%
+\item[\code{resourceBundle}]
+the \Type{ResourceBundle}\cite{resourcebundle13} to use, can be \code{null}.
+%
+\end{compactdesc}
+%
+\item[\code{printSingleLineUsage([resourceBundle])}] \hfill \\
+Returns an example of the usage in a single line.
+\begin{compactdesc}
+%
+\item[\code{resourceBundle}]
+the \Type{ResourceBundle}\cite{resourcebundle13} to use, can be \code{null}.
+%
+\end{compactdesc}
+%
+\item[\code{printUsage([resourceBundle])}] \hfill \\
+Returns an example of the usage.
+\begin{compactdesc}
+%
+\item[\code{resourceBundle}]
+the \Type{ResourceBundle}\cite{resourcebundle13} to use, can be \code{null}.
+%
+\end{compactdesc}
+%
 \end{asparadesc}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_arguments_parse}, title={%
-\Command{parse} command: storing the parse command in a variable and set 
+\begin{lstlisting}[style=Groovybash, label={lst:example_arguments_parse1}, title={%
+Storing the parse command in a variable and set 
 the arguments and parse the command line arguments at a later point.}]
 def parser = parse.args new Parameter()
 parser.valid = { convertFiles(it) }
@@ -52,14 +89,35 @@ parser.notValid = { printHelp() }
 parser()
 \end{lstlisting}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_arguments_parse}, title={%
-\Command{parse} command: parse command line arguments; valid and not-valid 
+\begin{lstlisting}[style=Groovybash, label={lst:example_arguments_parse2}, title={%
+Parse command line arguments; valid and not-valid 
 closures are called depending on whether the arguments are valid.}]
 parse valid: { convertFiles(it) },
     notValid: { printHelp() },
     new Parameter()
     
 def printHelp() {
+}
+
+class Parameter {
+
+    @Option(name = "-format")
+    String format
+
+    @Argument(required = true, metaVar = "FILES")
+    List arguments
+}
+
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_arguments_parse3}, title={%
+Print example and usage.}]
+def parser = parse.args new Parameter()
+    
+def printHelp() {
+    echo parser.printExample(ExampleMode.ALL)
+    echo parser.printSingleLineUsage()
+    echo parser.printUsage()
 }
 
 class Parameter {
