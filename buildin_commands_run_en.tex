@@ -22,6 +22,13 @@ specified environment and working directory. It can not execute build-in command
 a callback that is called when the process completes. 
 The methods of the \Type{ExecuteResultHandler}\cite{executeresulthandler13} 
 are called when the process completes or when the process fails.
+
+Can be set to an instance of the \Type{ExecuteResultHandler} or of a class 
+type; the class type is instantiated with the default
+constructor and set as the handler.
+
+An handler must be set if the command is executed in the background by the \Operator*{background()}
+operator, otherwise it is possible that the script will finish before the command finishes.
 %
 \item[\code{destroyer: ProcessDestroyer}] \hfill \\
 \Type{ProcessDestroyer}\cite{processdestroyer13}  destroys the process under certain conditions.
@@ -30,8 +37,7 @@ that will destroy the process after the script terminates unexpectelly.
 %
 \item[\code{watchdog}] \hfill \\
 destroys the process after a specified timeout. Defaults to 
-the \Type{ExecuteWatchdog}\cite{executewatchdog13} with infinite timeput, i.e.
-it will never timeout.
+no watchdog which means the process will never timeout.
 %
 \item[\code{timeout: (+)number|duration}] \hfill \\
 sets the timeout for the process. Defaults to an infinite 
