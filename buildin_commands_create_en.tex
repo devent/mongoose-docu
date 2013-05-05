@@ -1,0 +1,30 @@
+\TheCommand{create}%
+\Command{create name}
+
+\TypeTable{create \\}{%
+% properties
+theCommandName \\
+%\midrule
+% operators
+}
+
+Creates the specified command without executing it. That is useful to 
+assign a command to a variable and execute the command at a later time.
+
+\begin{asparadesc}
+%
+\item[\code{name}]  \hfill \\
+the command name to create.
+%
+\item[\code{theCommandName}]  \hfill \\
+the name of the command that was created.
+%
+\end{asparadesc}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_create}, title={
+Create command for a later execution.}]
+def command = create "echo"
+command.args "Hello"
+command()
+\end{lstlisting}
+
