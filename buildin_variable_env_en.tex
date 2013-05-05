@@ -1,0 +1,26 @@
+\TheVariable{ENV}%
+\Variable{ENV}
+
+An map of the current environment variables. The map will contain
+at script start the enherited environment variables from the parent process.
+The environment variables can also be obtained by \code{System\#getenv()}\cite{getenv13}.
+The environment variables are not type safe; they are just strings.
+
+Subsequent commands will use a copy of the environment variables. 
+Already running or finished commands will not see the changes
+made to \Variable{ENV}.
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_args}, title={
+Print the current environment variables.}]
+echo ENV
+echo ENV["PATH"]
+echo ENV.JAVA_HOME
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_args}, title={
+Set environment variables to new value.}]
+ENV = [key: value ...]
+ENV["PATH"] += ":/my/path"
+ENV.JAVA_HOME = "my/path"
+\end{lstlisting}
+
