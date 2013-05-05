@@ -1,0 +1,43 @@
+\TheCommand{export}%
+\Command{export [remove true|false] [name[:value]]...}
+
+\TypeTable{export \\}{%
+% properties
+%\midrule
+% operators
+}
+
+Add the specified names and values to the environment variables.
+If no names are specified, the current list of names and their values are
+printed. The environment variables can also be set with the \Variable*{ENV}
+build-in variable.
+
+\begin{asparadesc}
+%
+\item[\code{remove: true|false}]  \hfill \\
+if \code{true} then a new specified names are removed from the list of
+environment variables.
+%
+\end{asparadesc}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_export_set}, title={
+Add or change environment variables.}]
+export "DEBUG_ENABLED"
+export "FOO_SYMBOL", "BAR_SYMBOL"
+export "JAVA_HOME": "/my/path"
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_export_remove}, title={
+Remove environment variables.}]
+export remove: true, "DEBUG_ENABLED"
+export remove: true, "FOO_SYMBOL", "BAR_SYMBOL"
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_export_print}, title={
+Print environment variables.}]
+export
+>>> M2 := "/home/devent/apps/apache-maven-3.0.4/bin"
+>>> M2_HOME := "/home/devent/apps/apache-maven-3.0.4"
+>>> MAIL := "/var/spool/mail/devent"
+>>> ...
+\end{lstlisting}

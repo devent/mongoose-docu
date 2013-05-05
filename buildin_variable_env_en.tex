@@ -5,6 +5,7 @@ An map of the current environment variables. The map will contain
 at script start the enherited environment variables from the parent process.
 The environment variables can also be obtained by \code{System\#getenv()}\cite{getenv13}.
 The environment variables are not type safe; they are just strings.
+The variables can also be changed by the \Command*{export} build-in command.
 
 Subsequent commands will use a copy of the environment variables. 
 Already running or finished commands will not see the changes
