@@ -1,0 +1,43 @@
+\TheVariable[EXECUTION_MODE]{EXECUTION\_MODE}%
+\Variable{EXECUTION\_MODE}
+
+Stores or sets the execution mode for the script. The execution mode specifies
+how commands without arguments are executed. In a bash script commands
+do not need any parenthesis to be executed; but sometimes it is usefull
+to assign a command to a variable to execute the command at a later time.
+
+If the modus is set to execute the commands without the need for parenthesis
+then the \Command*{create} command needs to be used to assign a command to
+a variable for later execution. Defaults to the \code{IMPLICIT} mode.
+The variable can be changed in the script but it will only effect the next
+commands.
+
+\begin{asparadesc}
+%
+\item[\code{IMPLICIT}]  \hfill \\
+commands without arguments are executed when they are encountered in the script;
+no parenthesis needed.
+%
+\item[\code{EXPLICIT}]  \hfill \\
+commands without arguments are executed only if parenthesis are given.
+%
+\end{asparadesc}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_exmode1}, title={
+Implicit execution of commands; the build-in command create needs to be used 
+to assign commands to a variable.}]
+echo
+pwd
+cd
+def command = create "echo"
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_exmode1}, title={
+Explicit execution of commands; the parenthesis needs to be used to execute the command
+but no need for the create build-in.}]
+echo()
+pwd()
+cd()
+def command = echo
+\end{lstlisting}
+
