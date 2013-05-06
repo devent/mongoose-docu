@@ -26,30 +26,49 @@ command one: foo, two: bar
 \end{lstlisting}
 
 \TheOperator{background()}%
-\Operator{background(object...)}
+\Operator{background([listener: object] [listeners: list] object...)}
 
 The \Operator{background()} operator sets the arguments for the command and 
 executes the
 command in the background. 
 The operator can set the arguments for the command like the \Operator{call()}
-operator. The return value is a \Type{Future}\cite{future13} of the command.
+operator. The return value is a \Type{ListenableFuture}\Type*{ListenableFuture} of the command.
+
+\begin{asparadesc}
+%
+\item[\code{listener}] \hfill \\
+optional, sets the \Type{PropertyChangeListener}\cite{propertychangelistener13}
+listener to be informed when the command finishes.
+%
+\item[\code{listeners}] \hfill \\
+optional, sets a list of \Type{PropertyChangeListener}\cite{propertychangelistener13}
+listeners to be informed when the command finishes.
+%
+\end{asparadesc}
 
 \begin{lstlisting}[style=Groovybash, label={lst:example_background1}, 
 title={Starts the command in the background and waits for the command to finish 
 at some later time.}]
-def task = command.background()
+def cmd = create "echo" theCommand
+def task = cmd.background "Test"
 task.get()
 \end{lstlisting}
 
 \begin{lstlisting}[style=Groovybash, label={lst:example_background2}, 
-title={Pass arguments to the command either direct or by key=value pairs.}]
-cat.background file
-cat.background "-n", file
-cat.background "-n": file
-command.background one: foo, two: bar
+title={Inform when the command finishes in the background.}]
+def mylistener = { evt -> echo "Done." } as PropertyChangeListener
+def cmd = create "echo" theCommand
+def task = cmd.background listener: mylistener, "Test"
 \end{lstlisting}
 
+\begin{lstlisting}[style=Groovybash, label={lst:example_background2}, 
+title={Inform the listeners when the command finishes in the background.}]
+def mylistenerA = { evt -> echo "Done A." } as PropertyChangeListener
+def mylistenerB = { evt -> echo "Done B." } as PropertyChangeListener
+cat.background listeners: [mylistenerA, mylistenerB], file
+\end{lstlisting}
 
+\pagebreak
 \TheOperator{args()}%
 \Operator{args(object...)}
 
