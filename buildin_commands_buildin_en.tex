@@ -1,0 +1,50 @@
+\TheCommand{buildin}%
+\Command{buildin name: name [, args: value...] [, args...]}
+
+\TypeTable{buildin \\}{%
+% properties
+theCommandName \\
+theCommand \\
+%\midrule
+% operators
+}
+
+Execute the specified build-in command and pass the optional arguments
+to the command. This is useful if there is a function with the same name
+as the build-in declared.
+The returned command delegates all unknown methods and properties to the
+executed build-in command.
+
+\begin{asparadesc}
+%
+\item[\code{name: name}]  \hfill \\
+the name of the build-in command.
+%
+\item[\code{theCommandName}]  \hfill \\
+the name of the command that was created.
+%
+\item[\code{theCommand}]  \hfill \\
+returns the executed build-in command.
+%
+\end{asparadesc}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_buildin}, title={
+Call build-in commands.}]
+buildin name: "echo", "Test"
+buildin name: "echo", newline: false, "Test"
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_buildin_override}, title={
+Override build-in command.}]
+def cd() {
+    buildin name: "cd"
+}
+
+cd
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_buildin_delegate}, title={
+Delegate the properties to the executed build-in command.}]
+def files = buildin name: "listFiles" theFiles
+\end{lstlisting}
+
