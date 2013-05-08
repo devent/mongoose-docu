@@ -1,7 +1,7 @@
-\TheCommand{run}%
-\Command{run [handler,] [, destroyer] [, watchdog] [, timeout] [, successExitValue] [, successExitValues] cmd [, env] \\~ [, directory]}
+\TheCommand{exec}%
+\Command{exec [handler,] [, destroyer] [, watchdog] [, timeout] [, successExitValue] [, successExitValues] cmd [, env] \\~ [, directory]}
 
-\TypeTable{run \\}{%
+\TypeTable{exec \\}{%
 % properties
 handler \\
 destroyer \\
@@ -60,16 +60,16 @@ and saved in the \Variable*{PWD} variable.
 %
 \end{asparaitem}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_run1}, title={
+\begin{lstlisting}[style=Groovybash, label={lst:example_exec1}, title={
 Examples to execute external commands.}]
-run "ls -al"
-run "javap -private", "path=/home/user/java6/bin"
-run "mvn package", [JAVA_HOME: "/home/user/java6"]
+exec "ls -al"
+exec "javap -private", "path=/home/user/java6/bin"
+exec "mvn package", [JAVA_HOME: "/home/user/java6"]
 \end{lstlisting}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_run2}, title={
+\begin{lstlisting}[style=Groovybash, label={lst:example_exec2}, title={
 Deleyed execution of external commands.}]
-def command = run.args "ls -al"
+def command = exec.args "ls -al"
 command.directory = "/tmp"
 command.timeout = 500
 command()
