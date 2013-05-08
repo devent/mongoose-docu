@@ -1,0 +1,87 @@
+\TheCommand{enable}%
+\Command{enable [disable: true|false] [delete: true|false] [library:\\ filename] [classpath: path] [names...]}
+
+\TypeTable{enable \\}{%
+% properties
+theCommands \\
+%\midrule
+% operators
+}
+
+Enables or disables specific build-in commands. Disabled build-in commands
+are allowing an external command to be executed in place of the build-in.
+If \Arg{disable} is set to \TypeTrue the specified \Arg{names} will be disabled;
+otherwise the \Arg{names} are enabled. 
+
+If either \Arg{library} or \Arg{classpath}
+are specified then the \Arg{names} are loaded and enabled from the libraries.
+The \Arg{delete} argument will delete the previosly loaded build-in if set to \TypeTrue.
+
+Without arguments the list of currently loaded and active build-in commands
+is available. The list will contain the names of build-in commands and one of the 
+\Type*{CommandStatus} status:
+
+\begin{compactitem}
+%
+\item \Type{CommandStatus.enabled}
+if the build-in command is enabled;
+%
+\item \Type{CommandStatus.disabled}
+if the build-in command is disabled;
+%
+\item \Type{CommandStatus.loaded}
+if the build-in command is loaded from a library and enabled;
+%
+\end{compactitem}
+
+
+\begin{asparadesc}
+%
+\item[\code{disable: true|false}] \hfill \\
+disable the \Arg{names} build-in commands if set to \TypeTrue; otherwise
+enable the \Arg{names} build-in commands. Defaults to \TypeFalse.
+%
+\item[\code{delete: true|false}] \hfill \\
+deletes the previosly loaded build-in commands with the 
+specified \Arg{names}. Defaults to \TypeFalse.
+%
+\item[\code{library: filename}] \hfill \\
+loads and enables the \Arg{names} build-in commands from the specified 
+library file. If no \Arg{names} are specified, then all found build-in 
+commands are loaded.
+%
+\item[\code{classpath: path}] \hfill \\
+loads and enables the \Arg{names} build-in commands from the specified 
+class path. If no \Arg{names} are specified, then all found build-in 
+commands are loaded.
+%
+\item[\code{names...}] \hfill \\
+the names of the build-in commands that should be enabled, disabled,
+loaded or deleted.
+%
+\item[\code{theCommands}] \hfill \\
+a list of all enabled, disabled or loaded build-in commands.
+%
+\end{asparadesc}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_enable1}, title={%
+Disables and enables build-in commands.}]
+enable disable: true, "cd"
+enable "cd"
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_enable2}, title={%
+Loads build-in commands from libraries.}]
+enable library: "SomeCommand.jar"
+enable classpath: "my/path", "some"
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_enable3}, title={%
+Print all enabled build-in commands.}]
+enable.theCommands.findAll { 
+    it.value == CommandStatus.ENABLED 
+}.each {
+    echo it
+}
+\end{lstlisting}
+

@@ -33,7 +33,7 @@
 % Format listings
 \lstdefinelanguage{Groovybash}[]{Groovy}{%
 morekeywords={},
-morekeywords=[2]{buildin,cd,create,echo,export,exit,listFiles,printf,println,print,run,pwd,parse},
+morekeywords=[2]{buildin,cd,create,echo,enable,export,exit,listFiles,printf,println,print,run,pwd,parse},
 morekeywords=[3]{DirectoryNotFound,ENV,HOME,USER_HOME,CDPATH,PWD,SCRIPT_HOME}
 }
 
@@ -84,6 +84,19 @@ emph={[3]},emphstyle={[3]}}
 \newcommand{\TypeFile}{\textsc{\TypeFileName}\xspace}
 \newcommand{\TypeReturnValue}{\textsc{\TypeReturnValueName}\xspace}
 \newcommand{\TypeGenericObject}{\textsc{\TypeGenericObjectName}\xspace}
+\newcommand{\TypeTrue}{\textit{true}\xspace}
+\newcommand{\TypeFalse}{\textit{false}\xspace}
+% Propery
+\newcommand{\Property}[1]{\code{#1}}
+%%%%
+% variable typewriter font
+\newcommand\textvtt[1]{{\normalfont\fontfamily{cmvtt}\selectfont #1}\xspace}
+% code
+\newcommand{\code}[1]{\textvtt{\bfseries #1}}
+% arguments
+\definecolor{ArgsColor}{named}{Green}
+\newcommand{\Arg}[1]{\textit{\textcolor{ArgsColor}{#1}}}
+%%%%
 % Table for a type
 \newcommand{\TypeTable}[2]{%
 \begin{small}
@@ -97,22 +110,10 @@ emph={[3]},emphstyle={[3]}}
 \end{tabular} 
 \end{small}
 }
-% Propery
-\newcommand{\Property}[1]{\code{#1}}
-
+% table head column
 \newcommand{\cbf}[2]{\multicolumn{1}{#1}{\textbf{#2}}}
+% left align column
 \newcommand{\mcl}[2]{\multicolumn{#1}{l}{#2}}
-
-\newcommand\textvtt[1]{{\normalfont\fontfamily{cmvtt}\selectfont #1}}
-\newcommand{\file}{\texttt}
-\newcommand{\code}[1]{\textvtt{\bfseries #1}}
-\newcommand{\parparameter}[1]{\paragraph{\texttt{#1}}}
-\newcommand{\parcommand}{{\bfseries}}
-\newcommand{\partype}[1]{\texttt{\textsc{#1}}}
-\newcommand{\codetype}{\textsc}
-\newcommand{\codequoted}[1]{``\code{#1}''}
-\newcommand{\typeitem}[1]{$\langle$#1$\rangle$}
-%%%%
 
 \newcounter{Feature}
 \newcommand{\printTheFeature}{\stepcounter{Feature}\padzeroes[2]{\decimal{Feature}}}
