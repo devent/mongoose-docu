@@ -1,5 +1,8 @@
 \TheCommand{exec}%
-\Command{exec [handler,] [, destroyer] [, watchdog] [, timeout] [, successExitValue] [, successExitValues] cmd [, env] \\~ [, directory]}
+\Command{exec [handler: handler] [destroyer: destroyer]\\~
+[watchdog: watchdog] [timeout: duration]\\~
+[successExitValue: number] [successExitValues: list]\\~
+command [env: map] [directory: path]}
 
 \TypeTable{exec \\}{%
 % properties
@@ -16,54 +19,74 @@ theExitValue \\
 % operators
 }
 
-Executes the specified external command in a separate process with the
-specified environment and working directory. It can not execute build-in commands.
+Executes the specified external \Arg{command} in a separate process with the
+specified environment and working directory. The \Arg{command} contains the
+name of the command to be looked up by the system or the full path of the command.
+Any arguments for the command should be specified in \Arg{command}.
+
+The \Arg{handler} is called when the process completes or when the process 
+fails. The success return value
+or a list of possible success return values of the process can be set by 
+the \Arg{successExitValue} or by the \Arg{successExitValues} argument.
+An handler must be set if the command is executed in the background by the \Operator*{background()}
+operator, otherwise it is possible that the script will finish before the command itself finishes,
+resulting in killing the command forcefully.
+
+The \Arg{destroyer} can terminate the process under certain conditions.
+The default destroyer will terminate the process if the JVM terminates under
+any circumdances, see \code{Runtime}\code{\#addShutdownHook(Thread)}\cite{addshutdownhook13}.
+
+An timeout can be set by the \Arg{timeout} argument. For special conditions
+that can trigger a timeout the \Arg{watchdog} can be set. The default settings
+is no timeout, meaning the build-in will wait for the process to terminate.
+
+The environment as the system-dependent mapping from variables
+to values can be set with the \Arg{env} argument. The initial value is a copy 
+of the environment of the current script \Variable*{ENV}. Can be set to a map 
+containing \code{key=value} entries.
+The working directory of the process can be set by \Arg{directory}. The default value
+is the current working directory set by the \Command*{cd} command
+and saved in the \Variable*{PWD} variable.
 
 \begin{asparaitem}
 %
-\item[\code{handler: ExecuteResultHandler}] \hfill \\
-a callback that is called when the process completes. 
-The methods of the \Type{ExecuteResultHandler}\cite{executeresulthandler13} 
-are called when the process completes or when the process fails.
-
-Can be set to an instance of the \Type{ExecuteResultHandler} or of a class 
+\item[\code{handler: object|class}] \hfill \\
+the \Type{ExecuteResultHandler}\cite{executeresulthandler13} or of a class 
+type; the class type is instantiated with the default
+constructor and set as the handler. Defaults to the 
+\Type{DefaultExecuteResultHandler}\cite{defaultexecuteresulthandler13}.
+%
+\item[\code{destroyer: object|class}] \hfill \\
+the \Type{ProcessDestroyer}\cite{processdestroyer13} or of a class 
 type; the class type is instantiated with the default
 constructor and set as the handler.
-
-An handler must be set if the command is executed in the background by the \Operator*{background()}
-operator, otherwise it is possible that the script will finish before the command finishes.
-%
-\item[\code{destroyer: ProcessDestroyer}] \hfill \\
-\Type{ProcessDestroyer}\cite{processdestroyer13}  destroys the process under certain conditions.
 Defaults to the \Type{ShutdownHookProcessDestroyer}\cite{shutdownhookprocessdestroyer13}
-that will destroy the process after the script terminates unexpectelly.
 %
-\item[\code{watchdog}] \hfill \\
-destroys the process after a specified timeout. Defaults to 
-no watchdog which means the process will never timeout.
+\item[\code{watchdog: object|class}] \hfill \\
+the \Type{ExecuteWatchdog}\cite{executewatchdog13} or of a class 
+type; the class type is instantiated with the default
+constructor and set as the handler.
+Defaults to no watchdog.
 %
-\item[\code{timeout: (+)number|duration}] \hfill \\
-sets the timeout for the process. Defaults to an infinite 
-timeout \code{ExecuteWatchdog} \code{\#INFINITE\_TIMEOUT}. Can be set to a positive
-number or a \Type{Duration}\cite{duration13}.
+\item[\code{timeout: duration}] \hfill \\
+the timeout in milliseconds or of \Type{Duration}\cite{duration13}.
+Defaults to \code{ExecuteWatchdog}\code{\#INFINITE\_TIMEOUT}.
 %
-\item[\code{env}] \hfill \\
-the system-dependent mapping from variables
-to values. The initial value is a copy of the environment of the current
-script. Can be a string containing \code{name=value} tupels
-separated by a comma, or a map containing \code{key=value} entries.
+\item[\code{command}] \hfill \\
+the command to execute, with additional arguments.
 %
-\item[\code{dir}] \hfill \\
-the working directory of the process. The default value
-is the current working directory set by the \Command*{cd} command
-and saved in the \Variable*{PWD} variable.
+\item[\code{env: map}] \hfill \\
+map containing \code{key=value} entries for the environment.
+%
+\item[\code{dir: path}] \hfill \\
+the path of the working directory for the process.
 %
 \end{asparaitem}
 
 \begin{lstlisting}[style=Groovybash, label={lst:example_exec1}, title={
 Examples to execute external commands.}]
 exec "ls -al"
-exec "javap -private", "path=/home/user/java6/bin"
+exec "javap -private", "/home/user/java6/bin"
 exec "mvn package", [JAVA_HOME: "/home/user/java6"]
 \end{lstlisting}
 
