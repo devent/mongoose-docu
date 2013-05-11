@@ -1,8 +1,7 @@
 \TheCommand{exec}%
-\Command{exec [handler: handler] [destroyer: destroyer]\\~
-[watchdog: watchdog] [timeout: duration]\\~
-[successExitValue: number] [successExitValues: list]\\~
-command [env: map] [directory: path]}
+\Command{exec [handler: handler] [destroyer: destroyer] [watchdog: \\
+watchdog] [timeout: duration] [successExitValue: number]\\~
+[successExitValues: list] command [env] [path]}
 
 \TypeTable{exec \\}{%
 % properties
@@ -44,25 +43,25 @@ The environment as the system-dependent mapping from variables
 to values can be set with the \Arg{env} argument. The initial value is a copy 
 of the environment of the current script \Variable*{ENV}. Can be set to a map 
 containing \code{key=value} entries.
-The working directory of the process can be set by \Arg{directory}. The default value
+The working directory of the process can be set by \Arg{path}. The default value
 is the current working directory set by the \Command*{cd} command
 and saved in the \Variable*{PWD} variable.
 
 \begin{asparaitem}
 %
-\item[\code{handler: object|class}] \hfill \\
+\item[\code{handler: handler}] \hfill \\
 the \Type{ExecuteResultHandler}\cite{executeresulthandler13} or of a class 
 type; the class type is instantiated with the default
 constructor and set as the handler. Defaults to the 
 \Type{DefaultExecuteResultHandler}\cite{defaultexecuteresulthandler13}.
 %
-\item[\code{destroyer: object|class}] \hfill \\
+\item[\code{destroyer: destroyer}] \hfill \\
 the \Type{ProcessDestroyer}\cite{processdestroyer13} or of a class 
 type; the class type is instantiated with the default
 constructor and set as the handler.
 Defaults to the \Type{ShutdownHookProcessDestroyer}\cite{shutdownhookprocessdestroyer13}
 %
-\item[\code{watchdog: object|class}] \hfill \\
+\item[\code{watchdog: watchdog}] \hfill \\
 the \Type{ExecuteWatchdog}\cite{executewatchdog13} or of a class 
 type; the class type is instantiated with the default
 constructor and set as the handler.
@@ -75,10 +74,10 @@ Defaults to \code{ExecuteWatchdog}\code{\#INFINITE\_TIMEOUT}.
 \item[\code{command}] \hfill \\
 the command to execute, with additional arguments.
 %
-\item[\code{env: map}] \hfill \\
+\item[\code{env}] \hfill \\
 map containing \code{key=value} entries for the environment.
 %
-\item[\code{dir: path}] \hfill \\
+\item[\code{path}] \hfill \\
 the path of the working directory for the process.
 %
 \end{asparaitem}

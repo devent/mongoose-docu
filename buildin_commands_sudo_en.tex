@@ -1,0 +1,77 @@
+\TheCommand{sudo}%
+\Command{sudo [backend: backend] [handler: handler] [destroyer:\\
+destroyer] [watchdog: watchdog] [timeout: duration]\\~
+[successExitValue: number] [successExitValues: list]\\~
+command [env] [path]}
+
+\TypeTable{sudo \\}{%
+% properties
+backend \\
+handler \\
+destroyer \\
+watchdog \\
+timeout \\
+env \\
+directory \\
+successExitValue \\
+successExitValues \\
+theExitValue \\
+%\midrule
+% operators
+}
+
+Executes the specified external \Arg{command} in a separate process with the
+specified environment and working directory. The \Arg{command} will be executed
+with root privileges using various backends like:
+\begin{compactitem}
+\item \code{sudo}\cite{sudo(8)13};
+\item \code{kdesu}\cite{kdesu13};
+\item \code{gksu}\cite{gksu13};
+\end{compactitem}
+
+The arguments are identical to the \Command*{exec} build-in command except
+that the specified \Arg{command} is run with root privileges. The default
+back-end is choosen based on the value of the \Variable{SUDO\_BACKEND}
+environment.
+
+The common back-ends are:
+\begin{compactitem}
+\item \Type*{KdesuBackend}
+\item \Type*{SudoBackend}
+\item \Type*{GksuBackend}
+\end{compactitem}
+
+\begin{asparaitem}
+%
+\item[\code{backend: backend}] \hfill \\
+the \Type*{Backend} or of a class 
+type; the class type is instantiated with the default
+constructor and set as the handler.
+%
+\item[\Variable{SUDO\_BACKEND}] \hfill \\
+the default \Type*{Backend} type to use for the \Command{sudo} command.
+%
+\end{asparaitem}
+
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_sudo1}, title={
+Execution of external command with root privileges.}]
+sudo "ls -al"
+sudo "javap -private", "/home/user/java6/bin"
+sudo "mvn package", [JAVA_HOME: "/home/user/java6"]
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_sudo2}, title={
+Deleyed execution of external command with root privileges.}]
+def command = sudo.args "ls -al"
+command.directory = "/tmp"
+command.timeout = 500
+command()
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_sudo1}, title={
+Set back-end for to gain root privileges.}]
+export "SUDO_BACKEND", MyBackend
+sudo "lvdisplay -C"
+\end{lstlisting}
+
