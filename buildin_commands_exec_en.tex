@@ -1,7 +1,8 @@
 \TheCommand{exec}%
 \Command{exec [handler: handler] [destroyer: destroyer] [watchdog: \\
 watchdog] [timeout: duration] [successExitValue: number]\\~
-[successExitValues: list] command [env] [path]}
+[successExitValues: list] [terminal: false|true]\\~
+[terminalCommand: command] command [env] [path]}
 
 \TypeTable{exec \\}{%
 % properties
@@ -9,6 +10,8 @@ handler \\
 destroyer \\
 watchdog \\
 timeout \\
+terminal \\
+terminalCommand \\
 env \\
 directory \\
 successExitValue \\
@@ -46,6 +49,15 @@ containing \code{key=value} entries.
 The working directory of the process can be set by \Arg{path}. The default value
 is the current working directory set by the \Command*{cd} command
 and saved in the \Variable*{PWD} variable.
+
+For interactive commands a terminal can be set. The \Arg{terminal} specifies
+if an interactive terminal should be used for the command. The default terminal
+will be used if no \Arg{terminalCommand} command is specified. Without the full
+path the command is looked up in the current search path of the
+script. Arguments for the command have to be specified. The command that should
+be executed by the terminal will replace the \code{``\{\}''} characters in
+the command string. The terminal to use can also be set with the environment
+variable \Variable{TERMINAL\_COMMAND}.
 
 \begin{asparaitem}
 %
@@ -95,5 +107,12 @@ def command = exec.args "ls -al"
 command.directory = "/tmp"
 command.timeout = 500
 command()
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_exec3}, title={
+Execute command with an interactive terminal.}]
+export TERMINAL_COMMAND, "konsole --nofork --hide-menubar --hide-tabbar -e {}"
+exec terminal: true, "fsck /dev/sda1"
+exec terminal: true, terminalCommand: "mrxvt -e {}", "fsck /dev/sda1"
 \end{lstlisting}
 
