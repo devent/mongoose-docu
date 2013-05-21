@@ -1,7 +1,7 @@
-\TheCommand{lodevice}%
-\Command{lodevice file [device]}
+\TheCommand{loop}%
+\Command{loop file [device]}
 
-\TypeTable{lodevice \\}{%
+\TypeTable{loop \\}{%
 % properties
 file \\
 device \\
@@ -47,21 +47,21 @@ the path of the \code{losetup} tool.
 %
 \end{asparadesc}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_lodevice1}, title={
+\begin{lstlisting}[style=Groovybash, label={lst:example_loop1}, title={
 Setups the image file on the next available loop device.}]
-lodevice "image.dd"
-def dev = lodevice "image.dd"
+loop "image.dd"
+def dev = loop "image.dd"
 assert dev.theDevice != null
 \end{lstlisting}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_lodevice2}, title={
+\begin{lstlisting}[style=Groovybash, label={lst:example_loop2}, title={
 Setups the image file on the specified loop device.}]
-lodevice "image.dd", "loop0"
+loop "image.dd", "loop0"
 \end{lstlisting}
 
-\begin{lstlisting}[style=Groovybash, label={lst:example_lodevice3}, title={
+\begin{lstlisting}[style=Groovybash, label={lst:example_loop3}, title={
 Deletes the loop device.}]
-def dev = lodevice "image.dd", "loop0"
+def dev = loop "image.dd", "loop0"
 dev.delete()
 dev.setup()
 \end{lstlisting}
