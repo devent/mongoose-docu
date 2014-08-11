@@ -1,0 +1,73 @@
+\TheCommand{device}%
+\Command{device [type: string] [loop: path] path [args...]}
+
+\TypeTable{device \\}{%
+% properties
+type \\
+device \\
+loop \\
+theType \\
+theDevice \\
+theName \\
+%\midrule
+% operators
+}
+
+Creates a device for the specified device \Arg{path}. The \Arg{type}
+of the device needs to be set; as an alternative the device \Arg{path}
+can be an URI which scheme part is used as the device type.
+The \Arg{args...} arguments are passed on to the device.
+
+If the device path is a regular file and the device type is not a loop device, 
+then the file is assumed to be an image file for which a loop device is 
+first created using the \Command*{loop} command. The loop device will be the
+next available loop device if not specified in \Arg{loop}.
+After the loop device is setup the specified device type is created.
+The \code{file}\cite{mancxfile13} tool is used to identify the file type.
+
+\begin{asparadesc}
+%
+\item[\code{type}] \hfill \\
+the device type.
+%
+\item[\code{loop}] \hfill \\
+the loop path.
+%
+\item[\code{device}] \hfill \\
+the device path.
+%
+\item[\code{theType}] \hfill \\
+returns the device type.
+%
+\item[\code{theDevice}] \hfill \\
+returns the device path.
+%
+\item[\code{theName}] \hfill \\
+returns the name of the command.
+%
+\item[\code{FILE\_COMMAND}] \hfill \\
+the path of the \code{file} tool.
+%
+\end{asparadesc}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_device1}, title={
+Creates a block device for the device path.}]
+def block = device type: "block", "/dev/sda1"
+def block = device "block:///dev/sda1"
+block.autoFsck()
+block.mount "/media/sda1"
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_device2}, title={
+Creates a loop device for the image file.}]
+def block = device "block://image.dd"
+def block = device loop: "loop1", "block://image.dd"
+def block = device type: "block", loop: "loop1", "image.dd"
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_device3}, title={
+Passing of arguments to the created device.}]
+def crypt = device type: "crypt", "file://image.dd", "password"
+crypt.mount "/media/image"
+\end{lstlisting}
+
