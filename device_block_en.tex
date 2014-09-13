@@ -1,0 +1,112 @@
+\TheCommand{block}%
+
+\TypeTable{block \\}{%
+% properties
+theId \\
+theLabel \\
+theName \\
+theUUID \\
+thePath \\
+\midrule
+% operators
+as(\Arg{name}) \\
+autoFsck() \\
+autoFsck(\Arg{force}) \\
+fsck() \\
+fsck(\Arg{force}) \\
+mount(\Arg{path}) \\
+mount(\Arg{mount}, \Arg{path}) \\
+umount() \\
+umount(\Arg{path}) \\
+isMounted(\Arg{path}) \\
+size(\Arg{unit}) \\
+resize(\Arg{size}, \Arg{unit}) \\
+}
+
+The \Command{block} device is a generic device that can be resized, have a file system 
+and can be mounted on a directory. That device can be, for example, a hard disk,
+a loop-device, an encrypted container.
+
+\subsubsection*{Fields}
+
+\Operator{theId} returns the ID of the block device.
+
+\Operator{theLabel} returns the label of the block device.
+
+\Operator{theName} returns the name of the block device.
+
+\Operator{theUUID} returns the UUID of the block device.
+
+\Operator{thePath} returns the path of the device.
+
+\subsubsection*{Operators}
+
+\Operator{as(\Arg{name})} converts this device to a different type of device.
+Set \Arg{name} to the name of the device type to convert to.
+Returns this device converted to the new type.
+Throws \Exception{CommandException} if there were some error converting the device.
+
+\Operator{fsck()} checks the file system on the device.
+Throws \Exception{IOException} if there was an error checking the file system of the device.
+
+\Operator{fsck(\Arg{force})} Checks the file system on the device.
+Set \Arg{force} to true to force the check even if the file system is clean.
+Throws \Exception{IOException} if there was an error checking the file system of the device.
+
+\Operator{autoFsck()} Checks the file system on the device and automatically repair it.
+Throws \Exception{IOException} if there was an error checking the file system of the device.
+
+\Operator{autoFsck(\Arg{force})} Checks the file system on the device. 
+Set \Arg{force} to true to force the check even if the file system is clean.
+Throws \Exception{IOException} if there was an error checking the file system of the device.
+
+\Operator{mount(\Arg{path})} Mounts the device from the specified path.
+Set \Arg{path} to the \TypeFile{} path.
+Throws \Exception{NullPointerException} if the specified path is null;
+\Exception{IllegalArgumentException} if the specified path is not a directory or if the device is
+already mounted on the path. Throws \Exception{IOException} if there was an 
+error mounting or unmount the device.
+
+\Operator{mount(\Arg{mount}, \Arg{path})} Mounts the device from a specified path.
+Set \Arg{mount} to true if the device should be mounted at the specified
+path or to false if the device should be unmounted from the specified path.
+Set \Arg{path} to the \TypeFile{} path.
+Throws \Exception{NullPointerException} if the specified path is null;
+\Exception{IllegalArgumentException} if the specified path is not a directory or if the device is
+already mounted on the path or if the device is already mounted on the path or if the device
+is not mounted on the path. Throws \Exception{IOException} if there was an 
+error mounting or unmount the device.
+
+\Operator{umount()} Unmounts the device from mounted paths.
+Throws \Exception{IOException} if there was an 
+error mounting or unmount the device.
+
+\Operator{umount(\Arg{path})} Unmounts the device from the specified path.
+Set \Arg{path} to the \TypeFile{} path.
+Throws \Exception{NullPointerException} if the specified path is null;
+\Exception{IllegalArgumentException} if the device is not mounted on the path;
+\Exception{IOException} if there was an error unmount the device.
+
+\Operator{isMounted(\Arg{path})} Returns if the device is mounted on the 
+specified path. Returns true if the device is mounted on the specified path or
+false if not. Set \Arg{path} to the \TypeFile{} path.
+Throws \Exception{NullPointerException} if the specified path is null;
+\Exception{IOException} if there was an error checking if the device is mounted.
+
+\Operator{size(\Arg{unit})} Returns the size of the device. 
+Set \Arg{unit} to the unit of the size, like bytes, blocks or logical 
+extents, see \Type*{BlockDeviceUnits}.
+Throws \Exception{IOException} if there was an error get the size of the device;
+\Exception{UnsupportedOperationException} if the file system of the block device is not supported.
+
+\Operator{resize(\Arg{size}, \Arg{unit})} Resizes the device to the new size.
+Set \Arg{size} to the new size in units.
+Set \Arg{unit} to the unit of the size, like bytes, blocks or logical 
+extents, see \Type*{BlockDeviceUnits}.
+Throws \Exception{IOException} if there was an error resizing the device;
+\Exception{UnsupportedOperationException} if the file system of the block device is not supported.
+
+\subsubsection*{Variables}
+
+\Operator{BLKID\_COMMAND} the path of the \code{blkid} tool, usually it is found in \code{/usr/sbin/blkid}.
+

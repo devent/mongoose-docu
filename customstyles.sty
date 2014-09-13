@@ -55,7 +55,7 @@ emph={[3]},emphstyle={[3]}}
 \newcommand{\initmarginpar}[1]{\leavevmode\marginpar{\flushright{#1}}\ignorespaces}
 \definecolor{OperatorColor}{named}{MediumBlue}
 \newcommand{\TheOperator}[2][empty]{\AutoLabel[#1]{#2}\initmarginpar{\textcolor{OperatorColor}{\ttfamily\bfseries#2}}}
-\newcommand{\Operator}[1]{{\ttfamily\bfseries#1}}
+\newcommand{\Operator}[1]{{\hytexttt\bfseries#1}}
 \WithSuffix\newcommand\Operator*[2][empty]{\Operator{#2} (\AutoRef[#1]{#2})}
 % Command   
 \definecolor{CommandColor}{named}{MediumBlue}
@@ -71,13 +71,13 @@ emph={[3]},emphstyle={[3]}}
 \definecolor{ExceptionColor}{named}{MediumBlue}
 \newcommand{\TheException}[2][empty]{\AutoLabel[#1]{#2}\marginpar{\textcolor{TypeColor}{\begin{flushright}\ttfamily\bfseries#2\end{flushright}}}}
 \newcommand{\TheExceptionLine}[1]{\initmarginpar{\textcolor{ExceptionColor}{\ttfamily\bfseries#1}}}
-\newcommand{\Exception}[1]{{\ttfamily\bfseries#1}}
+\newcommand{\Exception}[1]{{\itshape#1}}
 \WithSuffix\newcommand\Exception*[2][empty]{\Exception{#2} (\AutoRef[#1]{#2})}
 % Type
-\definecolor{TypeColor}{named}{MediumBlue}
+\definecolor{TypeColor}{named}{MediumOrchid}
 \newcommand{\TheType}[2][empty]{\AutoLabel[#1]{#2}\marginpar{\textcolor{TypeColor}{\begin{flushright}\ttfamily\bfseries#2\end{flushright}}}}
 \newcommand{\TheTypeLine}[1]{\initmarginpar{\textcolor{TypeColor}{\ttfamily\bfseries#1}}}
-\newcommand{\Type}[1]{{\textsc{\small #1}}}
+\newcommand{\Type}[1]{{\itshape{\small #1}}}
 \WithSuffix\newcommand\Type*[2][empty]{\Type{#2} (\AutoRef[#1]{#2})}
 % Types
 \newcommand{\TypeStream}{\textsc{\TypeStreamName}\xspace}
@@ -92,7 +92,8 @@ emph={[3]},emphstyle={[3]}}
 % variable typewriter font
 \newcommand\textvtt[1]{{\normalfont\fontfamily{cmvtt}\selectfont #1}\xspace}
 % code
-\newcommand{\code}[1]{\textvtt{\bfseries #1}}
+\newcommand{\code}[1]{\hytexttt{\bfseries #1}}
+\newcommand{\qcode}[1]{\hytexttt{\bfseries ``#1''}}
 % arguments
 \definecolor{ArgsColor}{named}{Green}
 \newcommand{\Arg}[1]{\textit{\textcolor{ArgsColor}{#1}}}

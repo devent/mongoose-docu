@@ -1,5 +1,5 @@
 \TheCommand{loop}%
-\Command{loop file [device]}
+\Command{loop file [, device]}
 
 \TypeTable{loop \\}{%
 % properties
@@ -63,6 +63,7 @@ loop "image.dd", "loop0"
 Deletes the loop device.}]
 def dev = loop "image.dd", "loop0"
 dev.delete()
+// creates again the same loop device
 dev.setup()
 \end{lstlisting}
 

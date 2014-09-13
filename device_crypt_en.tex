@@ -1,0 +1,89 @@
+\TheCommand{crypt}%
+
+\TypeTable{crypt \\}{%
+% properties
+theLabel \\
+theName \\
+theUUID \\
+thePath \\
+\midrule
+% operators
+open(\Arg{args}, \Arg{name}) \\
+close(\Arg{name}) \\
+isOpen(\Arg{name}) \\
+as(\Arg{name}) \\
+autoFsck() \\
+autoFsck(\Arg{force}) \\
+fsck() \\
+fsck(\Arg{force}) \\
+mount(\Arg{path}) \\
+mount(\Arg{mount}, \Arg{path}) \\
+umount() \\
+umount(\Arg{path}) \\
+isMounted(\Arg{path}) \\
+size(\Arg{unit}) \\
+resize(\Arg{size}, \Arg{unit}) \\
+}
+
+The \Command{crypt} device is an encrypted container with or without a
+file system.
+
+\subsubsection*{Fields}
+
+The fields 
+\begin{inparaitem}
+\item \Operator{theLabel}
+\item \Operator{theName}
+\item \Operator{theUUID}
+\item \Operator{thePath}
+\end{inparaitem}
+are returning the same information as from the \Command*{block} device.
+
+\subsubsection*{Operators}
+
+\Operator{open(\Arg{args}, \Arg{name})} 
+opens the encrypted device under the specified name.
+Set \Arg{name} to the name of the opened device.
+Set \Arg{args} to pass additional arguments, like the passport or passphrase.
+Throws \Exception{IOException} if there was an error opening the device.
+
+For a LUKS device the passphrase is read from the standard input of the command
+if the passphrase is not explicetly specified as the \Arg{passphrase} argument.
+
+\Operator{close(\Arg{name})} 
+closes the encrypted device under the specified name.
+Set \Arg{name} to the name of the opened device.
+Throws \Exception{IOException} if there was an error closing the device.
+
+\Operator{isOpen(\Arg{name})} 
+checks if the encrypted device is open under the specified name.
+Set \Arg{name} to the name of the opened device.
+Returns true if the device is open under the specified name.
+Throws \Exception{IOException} if there was an error checking the device.
+
+The operators 
+\begin{inparaitem}
+\item \Operator{as(\Arg{name})}
+\item \Operator{autoFsck()}
+\item \Operator{autoFsck(\Arg{force})}
+\item \Operator{fsck()}
+\item \Operator{fsck(\Arg{force})}
+\item \Operator{mount\\(\Arg{path})}
+\item \Operator{mount(\Arg{mount}, \Arg{path})}
+\item \Operator{umount()}
+\item \Operator{umount(\Arg{path})}
+\item \Operator{isMounted(\Arg{path})}
+\item \Operator{size(\Arg{unit})}
+\item \Operator{resize(\Arg{size}, \Arg{unit})}
+\end{inparaitem}
+are behaving the same as the operators from the \Command*{block} device,
+with the exception that the encrypted device must be open.
+
+\subsubsection*{Variables}
+
+\Operator{BLKID\_COMMAND} the path of the \code{blkid} tool, usually it is 
+found in \code{/usr/sbin/blkid}.
+
+\Operator{CRYPTSETUP\_COMMAND} the path of the \code{cryptsetup} tool, usually it is 
+found in \code{/usr/sbin/cryptsetup}.
+

@@ -1,9 +1,7 @@
 \subsection{Miscelangerlous}
 
-\TheException{ListenableFuture}%
+\TheType{ListenableFuture}%
 \TypeTable{ListenableFuture \code{extends} Future\cite{future13} \\}{%
-% constructors
-\midrule
 % properties
 \midrule
 % operators
@@ -18,3 +16,23 @@ when the future task is done.
 The \code{PropertyChangeListener\#propertyChange(PropertyChangeEvent)}
 is informed with the \code{ListenableFuture\#STATUS\_PROPERTY} property
 name. The new value is set to \code{ListenableFuture.Status\#DONE}.
+
+\TheType{BlockDeviceUnits}%
+\TypeTable{BlockDeviceUnits \\}{%
+% properties
+SECTORS \\
+BLOCK\_COUNT \\
+BLOCK\_SIZE \\
+BYTE\_SIZE \\
+}
+
+The type \Type{BlockDeviceUnits} enumerates the size units of a block device.
+
+\Operator{SECTORS} The size in 512-bytes sectors.
+
+\Operator{BLOCK\_COUNT} The block count of the device.
+
+\Operator{BLOCK\_SIZE} The size of one block of the device in bytes.
+
+\Operator{BYTE\_SIZE} The byte size of the device.
+

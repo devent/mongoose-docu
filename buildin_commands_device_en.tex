@@ -1,5 +1,5 @@
 \TheCommand{device}%
-\Command{device [type: string] [loop: path] path [args...]}
+\Command{device [type: string] [, loop: path] , path [, args...]}
 
 \TypeTable{device \\}{%
 % properties
@@ -21,9 +21,26 @@ The \Arg{args...} arguments are passed on to the device.
 If the device path is a regular file and the device type is not a loop device, 
 then the file is assumed to be an image file for which a loop device is 
 first created using the \Command*{loop} command. The loop device will be the
-next available loop device if not specified in \Arg{loop}.
-After the loop device is setup the specified device type is created.
+next available loop device, if nothing was specified in the \Arg{loop} argument.
+After the loop device was created, the specified device type is created.
 The \code{file}\cite{mancxfile13} tool is used to identify the file type.
+
+All additional arguments are passed on directly to the device, like passwords,
+loop device name, etc. Furthermore, after the device is created, operations
+and properties not defined in the command are passed on to the underlying device.
+
+The command will return the device for additional operators on the device
+with the property \Operator{theDevice}. The type of the returned device is 
+dependend on the type specified:
+
+\begin{asparaitem}
+%
+\item \qcode{block} see \Command*{block} device;
+\item \qcode{crypt} see \Command*{crypt} device;
+%\item[\qcode{mdrain}] see \Command*{block} command;
+%
+\end{asparaitem}
+
 
 \begin{asparadesc}
 %
@@ -40,7 +57,7 @@ the device path.
 returns the device type.
 %
 \item[\code{theDevice}] \hfill \\
-returns the device path.
+returns the device.
 %
 \item[\code{theName}] \hfill \\
 returns the name of the command.
@@ -50,24 +67,37 @@ the path of the \code{file} tool.
 %
 \end{asparadesc}
 
+\input{device_block_en}
+\input{device_crypt_en}
+
 \begin{lstlisting}[style=Groovybash, label={lst:example_device1}, title={
 Creates a block device for the device path.}]
-def block = device type: "block", "/dev/sda1"
-def block = device "block:///dev/sda1"
+def device = device type: "block", "/dev/sda1"// or
+def device = device "block:///dev/sda1"
+def block = device.theDevice
 block.autoFsck()
 block.mount "/media/sda1"
+// alternative
+def device = device "block:///dev/sda1"
+device.autoFsck()
+device.mount "/media/sda1"
+\end{lstlisting}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_device2}, title={
+Creates a block device for the device path and apply operations on it, short syntax}]
+device "block:///dev/sda1" autoFsck()
+device "block:///dev/sda1" mount "/media/sda1"
 \end{lstlisting}
 
 \begin{lstlisting}[style=Groovybash, label={lst:example_device2}, title={
 Creates a loop device for the image file.}]
-def block = device "block://image.dd"
-def block = device loop: "loop1", "block://image.dd"
-def block = device type: "block", loop: "loop1", "image.dd"
+def block = device "block://image.dd" theDevice
+def block = device loop: "loop1", "block://image.dd" theDevice
+def block = device type: "block", loop: "loop1", "image.dd" theDevice
 \end{lstlisting}
 
 \begin{lstlisting}[style=Groovybash, label={lst:example_device3}, title={
 Passing of arguments to the created device.}]
-def crypt = device type: "crypt", "file://image.dd", "password"
+def crypt = device type: "crypt", "file://image.dd", "password" theDevice
 crypt.mount "/media/image"
 \end{lstlisting}
-

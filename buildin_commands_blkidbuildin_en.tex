@@ -1,0 +1,54 @@
+\TheCommand{blkid}%
+\Command{blkid path}
+
+\TypeTable{blkid \\}{%
+% properties
+path \\
+theLabel \\
+theName \\
+thePath \\
+theSecondaryType \\
+theType \\
+theUUID \\
+%\midrule
+% operators
+}
+
+Retrieves the attributes of a block device.
+The command requires the tool \code{blkid}\cite{blkid14} to be 
+available on the system. The path of the tool can be set with the
+environment variable \Variable{BLKID\_COMMAND} with the \Command*{export}
+command. The path is assumed to be \code{/usr/sbin/blkid}.
+
+\begin{asparadesc}
+%
+\item[\code{path}]  \hfill \\
+the path of the device.
+%
+\item[\code{theLabel}]  \hfill \\
+returns the device label string.
+%
+\item[\code{theName}]  \hfill \\
+returns the blkid command name.
+%
+\item[\code{thePath}]  \hfill \\
+returns the device path.
+%
+\item[\code{theSecondaryType}]  \hfill \\
+returns the device secondary type string.
+%
+\item[\code{theType}]  \hfill \\
+returns the device type string.
+%
+\item[\code{theUUID}]  \hfill \\
+returns the device UUID string.
+%
+\end{asparadesc}
+
+\begin{lstlisting}[style=Groovybash, label={lst:example_blkid1}, title={
+Show device attributes.}]
+def ret = blkid "/dev/sda1"
+println ret.theUUID
+println ret.theType
+\end{lstlisting}
+
